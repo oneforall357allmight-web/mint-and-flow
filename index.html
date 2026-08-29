@@ -148,6 +148,18 @@ textarea{resize:vertical;line-height:1.5}
 .tag.late{color:var(--late);border-color:var(--late)}
 .tag.ent{color:var(--brass);border-color:#E0D5BE}
 .tag.p1{color:var(--late);border-color:var(--late);font-weight:600}
+.tag.p2{color:#fff;background:var(--late);border-color:var(--late);font-weight:600}
+.tag.resp{color:var(--brass);border-color:#E0D5BE}
+.tag.resp.tbd{color:var(--grey);border-style:dashed}
+.blq{border-left:2px solid var(--late);background:#FCF5F4;padding:8px 11px;margin-top:9px;
+  font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.blq b{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--late);margin-bottom:3px}
+.nav-resp{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--brass);font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:96px}
+.nav-resp.tbd{color:var(--rule)}
+.stage-resp{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:-8px 0 14px}
+.stage-resp b{color:var(--brass);font-weight:600}
+.item-txt{cursor:pointer}
 /* ---- échéances ---- */
 .due{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
   border:1px solid var(--rule);border-radius:2px;padding:3px 8px;background:#fff;color:var(--grey);font-weight:600}
@@ -243,6 +255,7 @@ textarea{resize:vertical;line-height:1.5}
 .seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
 .seg button.c[aria-pressed=true]{background:var(--brass);border-color:var(--brass)}
 .seg button.d[aria-pressed=true]{background:var(--done);border-color:var(--done)}
+.seg button.p[aria-pressed=true]{background:var(--late);border-color:var(--late)}
 
 /* ---- fil de commentaires ---- */
 .note{padding:11px 0;border-bottom:1px solid var(--rule)}
@@ -256,6 +269,47 @@ textarea{resize:vertical;line-height:1.5}
 .log .what b{font-weight:600}
 .log .what em{font-style:normal;color:var(--grey);display:block;font-size:10px;
   letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+
+/* ============ RAPPORT ============ */
+.rep{background:#fff;border:1px solid var(--rule);border-radius:3px;padding:20px 18px;margin-top:6px}
+.rep-head{display:flex;gap:13px;align-items:flex-start;border-bottom:1.5px solid var(--ink);
+  padding-bottom:15px;margin-bottom:18px}
+.rep-head img{width:42px;height:42px;object-fit:contain;flex:none}
+.rep-head .id{flex:1;min-width:0}
+.rep-head h2{font-size:16.5px;letter-spacing:-.015em}
+.rep-head .sub{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:5px;
+  overflow-wrap:anywhere}
+.rep-head .dt{flex:none;text-align:right;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--rule);
+  border:1px solid var(--rule);margin-bottom:22px}
+.stat{background:#fff;padding:11px 4px;text-align:center}
+.stat b{display:block;font-size:19px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);display:block;margin-top:3px}
+.stat.l b{color:var(--done)} .stat.r b{color:var(--late)} .stat.c b{color:var(--brass)}
+.rep-sect{margin-bottom:24px}
+.rep-sect:last-child{margin-bottom:0}
+.rep-sect h3{font-size:10px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--ink);
+  padding-bottom:6px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rep-sect h3 em{font-style:normal;color:var(--grey);font-weight:600}
+.rep-grp{margin-bottom:15px;break-inside:avoid}
+.rep-grp .z{font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;overflow-wrap:anywhere}
+.rep-grp .r{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin:3px 0 8px}
+.rep-grp .r b{color:var(--ink);font-weight:600}
+.rep-grp .r.tbd b{color:var(--brass)}
+.rep-li{display:flex;gap:9px;align-items:baseline;padding:6px 0;font-size:13.5px;line-height:1.45;
+  border-bottom:1px solid var(--soft)}
+.rep-li:last-child{border-bottom:none}
+.rep-li .p{flex:none;width:7px;color:var(--rule)}
+.rep-li .x{flex:1;min-width:0;overflow-wrap:anywhere}
+.rep-li .n{flex:none;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);white-space:nowrap}
+.rep-li .n.late{color:var(--late);font-weight:600}
+.rep-li.done .x{color:var(--grey)}
+.rep-li.crit .p{color:var(--late)}
+.rep-blq{border-left:2px solid var(--late);background:#FCF5F4;padding:9px 12px;margin:7px 0 3px;
+  font-size:12.5px;line-height:1.5;overflow-wrap:anywhere}
+.rep-blq b{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--late);margin-bottom:4px}
+.rep-vide{color:var(--grey);font-size:13px;padding:2px 0 4px}
 
 pre.resume{white-space:pre-wrap;font-family:var(--sans);font-size:13.5px;background:#fff;
   border:1px solid var(--rule);border-radius:3px;padding:16px;margin:0;overflow-wrap:anywhere}
@@ -293,8 +347,16 @@ pre.resume{white-space:pre-wrap;font-family:var(--sans);font-size:13.5px;backgro
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}
   .splash-line{width:148px}.splash-in p{opacity:1}}
-@media print{.head,.tabbar,.addbar,.filters,.item-foot,.tick,.btn-row{display:none!important}
-  #app{padding:0;max-width:none}pre.resume{border:none;padding:0}}
+@media print{
+  .head,.tabbar,.addbar,.filters,.item-foot,.tick,.btn-row,.backbar,.stage,.note-sm{display:none!important}
+  #app{padding:0;max-width:none}
+  pre.resume{border:none;padding:0}
+  .rep{border:none;padding:0;margin:0}
+  .rep-sect{break-inside:auto}
+  .rep-grp,.rep-li{break-inside:avoid}
+  .stats{grid-template-columns:repeat(5,1fr)}
+  @page{margin:14mm}
+}
 </style>
 </head>
 <body>
@@ -388,6 +450,11 @@ function puceEcheance(date, fait, act, id, nid){
   return '<button class="due '+e.cls+'" data-a="'+act+'" data-id="'+id+'"'+(nid?' data-nid="'+nid+'"':'')+'>'+
     e.lib+'<span class="d">'+dfr(date)+'</span></button>';
 }
+function erreurEcriture(e){
+  var m=(e&&e.message)||String(e||"");
+  toast(/permission|denied/i.test(m) ? "Écriture refusée — vérifiez les règles de la base."
+                                     : "Enregistrement en attente : "+m);
+}
 function toast(m){ var e=$("toast"); e.textContent=m; e.classList.add("on");
   clearTimeout(e._t); e._t=setTimeout(function(){e.classList.remove("on")},2200); }
 function buzz(ms){ try{ navigator.vibrate && navigator.vibrate(ms||8); }catch(e){} }
@@ -435,13 +502,14 @@ DB.initFirebase = async function(cfg){
   it.on("child_removed", function(s){ DB.onItemGone && DB.onItemGone(s.key); });
 
   DB.ref.child("notes").on("value", function(s){ DB.onNote && DB.onNote(s.val()||{}); });
-  DB.ref.child("journal").limitToLast(80).on("value", function(s){
+  DB.ref.child("journal").limitToLast(60).on("value", function(s){
     var o=s.val()||{}, a=Object.keys(o).map(function(k){ return o[k]; });
     a.sort(function(x,y){ return y.ts-x.ts; }); DB.onLog && DB.onLog(a);
   });
   DB.ref.child("meta").on("value", function(s){ DB.onMeta && DB.onMeta(s.val()); });
+  DB.ref.child("affectations").on("value", function(s){ DB.onAffect && DB.onAffect(s.val()); });
   DB.ref.child("presence").on("value", function(s){
-    var o=s.val()||{}, lim=Date.now()-9e5;
+    var o=s.val()||{}, lim=Date.now()-3e5;
     DB.onPeers && DB.onPeers(Object.keys(o).map(function(k){return o[k];}).filter(function(p){return p.ts>lim;}));
   });
   DB.ready = true;
@@ -475,13 +543,14 @@ function chargerLocal(){
   Object.keys(pts).forEach(function(k){ DB.onItem(k, pts[k]); });
   DB.onNote && DB.onNote(d.notes||{});
   DB.onMeta && DB.onMeta(d.meta);
+  DB.onAffect && DB.onAffect(d.affectations);
   var j = d.journal||{}, a = Object.keys(j).map(function(k){return j[k];});
   a.sort(function(x,y){return y.ts-x.ts;}); DB.onLog && DB.onLog(a.slice(0,80));
 }
 
 /* ---- écritures ---- */
 DB.majPoint = function(id, patch){
-  if(DB.mode==="firebase") return DB.ref.child("points/"+id).update(patch);
+  if(DB.mode==="firebase") return DB.ref.child("points/"+id).update(patch).catch(erreurEcriture);
   var d=lireLocal(); d.points=d.points||{}; var cur=d.points[id]||{};
   Object.keys(patch).forEach(function(k){
     if(k.indexOf("/")<0){ if(patch[k]===null) delete cur[k]; else cur[k]=patch[k]; return; }
@@ -491,14 +560,23 @@ DB.majPoint = function(id, patch){
   });
   d.points[id]=cur; ecrireLocal(d); chargerLocal(); return Promise.resolve();
 };
+DB.majAffect = function(cle, obj){
+  if(DB.mode==="firebase"){
+    var r=DB.ref.child("affectations/"+cle);
+    return (obj? r.set(obj) : r.remove()).catch(erreurEcriture);
+  }
+  var d=lireLocal(); d.affectations=d.affectations||{};
+  if(obj) d.affectations[cle]=obj; else delete d.affectations[cle];
+  ecrireLocal(d); chargerLocal(); return Promise.resolve();
+};
 DB.majMeta = function(obj){
-  if(DB.mode==="firebase") return DB.ref.child("meta").update(obj);
+  if(DB.mode==="firebase") return DB.ref.child("meta").update(obj).catch(erreurEcriture);
   var d=lireLocal(); d.meta=Object.assign(d.meta||{}, obj); ecrireLocal(d); chargerLocal();
   return Promise.resolve();
 };
 /* mise à jour multi-chemins depuis la racine du projet : "points/<id>/<champ>" */
 DB.majLot = function(patch){
-  if(DB.mode==="firebase") return DB.ref.update(patch);
+  if(DB.mode==="firebase") return DB.ref.update(patch).catch(erreurEcriture);
   var d=lireLocal();
   Object.keys(patch).forEach(function(k){
     var pa=k.split("/"), o=d;
@@ -509,7 +587,7 @@ DB.majLot = function(patch){
 };
 DB.creerPoint = function(obj){
   var id = uid();
-  if(DB.mode==="firebase"){ DB.ref.child("points/"+id).set(obj); return id; }
+  if(DB.mode==="firebase"){ DB.ref.child("points/"+id).set(obj).catch(erreurEcriture); return id; }
   var d=lireLocal(); d.points=d.points||{}; d.points[id]=obj; ecrireLocal(d); chargerLocal(); return id;
 };
 DB.supprPoint = function(id){
@@ -518,12 +596,12 @@ DB.supprPoint = function(id){
   ecrireLocal(d); chargerLocal();
 };
 DB.creerNote = function(itemId, note){
-  if(DB.mode==="firebase") return DB.ref.child("notes/"+itemId).push(note);
+  if(DB.mode==="firebase") return DB.ref.child("notes/"+itemId).push(note).catch(erreurEcriture);
   var d=lireLocal(); d.notes=d.notes||{}; d.notes[itemId]=d.notes[itemId]||{};
   d.notes[itemId][uid()]=note; ecrireLocal(d); chargerLocal();
 };
 DB.majNote = function(itemId, noteId, patch){
-  if(DB.mode==="firebase") return DB.ref.child("notes/"+itemId+"/"+noteId).update(patch);
+  if(DB.mode==="firebase") return DB.ref.child("notes/"+itemId+"/"+noteId).update(patch).catch(erreurEcriture);
   var d=lireLocal(); d.notes=d.notes||{}; d.notes[itemId]=d.notes[itemId]||{};
   d.notes[itemId][noteId]=Object.assign(d.notes[itemId][noteId]||{}, patch);
   ecrireLocal(d); chargerLocal(); return Promise.resolve();
@@ -535,18 +613,35 @@ DB.supprNote = function(itemId, noteId){
 };
 DB.journal = function(act, txt, ref){
   var e={ ts:Date.now(), qui:MOI.nom, act:act, txt:txt, ref:ref||"" };
-  if(DB.mode==="firebase") return DB.ref.child("journal").push(e);
+  if(DB.mode==="firebase") return DB.ref.child("journal").push(e).catch(function(){});
   var d=lireLocal(); d.journal=d.journal||{}; d.journal[uid()]=e;
   var ks=Object.keys(d.journal); if(ks.length>200) ks.slice(0,ks.length-200).forEach(function(k){delete d.journal[k];});
   ecrireLocal(d); chargerLocal();
 };
-DB.importer = function(lots, cb){
+DB.importer = function(lots, cb, force){
   if(DB.mode==="firebase"){
-    var i=0;
-    (function suite(){
-      if(i>=lots.length){ cb(); return; }
-      DB.ref.child("points").update(lots[i++]).then(suite).catch(function(e){ toast("Import interrompu : "+e.message); });
-    })();
+    var lancer=function(){
+      var i=0;
+      (function suite(){
+        if(i>=lots.length){ cb(); return; }
+        DB.ref.child("points").update(lots[i++]).then(suite)
+          .catch(function(e){ toast("Import interrompu : "+e.message); });
+      })();
+    };
+    /* verrou atomique : si deux personnes appuient en même temps, une seule passe */
+    DB.ref.child("meta/import").transaction(function(cur){
+      if(cur && !force) return;                 /* abandon : déjà importé */
+      return { par: MOI.nom, ts: Date.now() };
+    }, function(err, valide){
+      if(err){ toast("Import impossible : "+err.message); return; }
+      if(!valide){
+        if(confirm("Un import a déjà été fait sur cette base par un autre appareil.\n\nLancer quand même ?"))
+          DB.importer(lots, cb, true);
+        else toast("Import annulé — les données sont déjà là.");
+        return;
+      }
+      lancer();
+    });
     return;
   }
   var d=lireLocal(); d.points=d.points||{};
@@ -586,15 +681,8 @@ function versDataURL(blob){
   });
 }
 
-DB.envoyerPhoto = async function(itemId, file, onProg){
-  var grande = await compresser(file, 1600, 0.72);
-  var petite = await compresser(file, 260, 0.55);
-  var meta   = { t: await versDataURL(petite), ts:Date.now(), qui:MOI.nom };
-
-  /* mode local : tout sur l'appareil */
-  if(DB.mode!=="firebase"){ meta.d = await versDataURL(grande); return meta; }
-
-  /* 1er choix : Cloud Storage, si le projet est en plan Blaze */
+DB.envoyerPleine = async function(itemId, grande, onProg){
+  if(DB.mode!=="firebase") return { d: await versDataURL(grande) };
   if(STOCKAGE!=="base"){
     try{
       var chemin = "projets/"+PROJET_ID+"/photos/"+itemId+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,6)+".jpg";
@@ -604,22 +692,13 @@ DB.envoyerPhoto = async function(itemId, file, onProg){
           function(s){ onProg && onProg(Math.round(s.bytesTransferred/s.totalBytes*100)); },
           rej, res);
       });
-      meta.u = await tache.snapshot.ref.getDownloadURL();
-      meta.p = chemin;
-      STOCKAGE = "storage";
-      return meta;
-    }catch(e){
-      STOCKAGE = "base";
-      toast("Stockage photo : bascule sur la base de données.");
-    }
+      STOCKAGE="storage";
+      return { u: await tache.snapshot.ref.getDownloadURL(), p: chemin };
+    }catch(e){ STOCKAGE="base"; }
   }
-
-  /* repli : l'image pleine résolution vit dans une branche séparée,
-     jamais chargée avec la liste des points — seulement à l'ouverture. */
   var cle = DB.ref.child("medias/"+itemId).push().key;
   await DB.ref.child("medias/"+itemId+"/"+cle).set(await versDataURL(grande));
-  meta.m = cle;
-  return meta;
+  return { m: cle };
 };
 
 DB.lireMedia = async function(itemId, cle){
@@ -639,6 +718,8 @@ DB.supprPhoto = function(meta, itemId){
    ══════════════════════════════════════════════════════════════ */
 var ITEMS = {}, NOTES = {}, LOG = [], PEERS = [];
 var META = { nom: PROJET_NOM, sub: PROJET_SUB };
+var AFFECT = {};                       /* responsables par zone / sous-zone */
+var PRIO = {0:"Normale", 1:"Prioritaire", 2:"Critique"};
 var MOI = { nom: ls("pg:nom")||"", uid:null };
 var V   = { tab:"releve", chemin:[], q:"", filtre:"tous", ent:"" };
 var pending = null;
@@ -649,9 +730,19 @@ DB.onNote     = function(o){ NOTES=o||{}; planifier(); };
 DB.onLog      = function(a){ LOG=a||[]; planifier(); };
 DB.onPeers    = function(a){ PEERS=a||[]; planifier(); };
 DB.onState    = function(){ planifier(); };
+DB.onAffect   = function(o){ AFFECT=o||{}; planifier(); };
 DB.onMeta     = function(m){ if(m){ if(m.nom) META.nom=m.nom; if(m.sub) META.sub=m.sub; } planifier(); };
 
-function planifier(){ if(pending) return; pending = requestAnimationFrame(function(){ pending=null; dessiner(); }); }
+/* Avec plusieurs dizaines d'appareils connectés, les évènements arrivent par salves.
+   On regroupe tout ce qui tombe dans une fenêtre de 90 ms en un seul rendu. */
+var tRendu=null;
+function planifier(){
+  if(pending) return;
+  pending=true; clearTimeout(tRendu);
+  tRendu=setTimeout(function(){
+    requestAnimationFrame(function(){ pending=false; dessiner(); });
+  }, 90);
+}
 
 function liste(){ return Object.keys(ITEMS).map(function(k){ return ITEMS[k]; }); }
 function sousArbre(chemin){
@@ -697,6 +788,8 @@ function filtrer(items){
     if(f==="semaine"){ var e=proche(it); if(s==="t" || e===null || e>7) return false; }
     if(f==="sansdate" && (s==="t" || it.delai || prochaineTache(it._id))) return false;
     if(f==="photo"  && !(it.ph && Object.keys(it.ph).length)) return false;
+    if(f==="critique" && +(it.prio||0)!==2) return false;
+    if(f==="bloquant" && !(it.blq||"").trim()) return false;
     if(e && (it.ent||"")!==e) return false;
     return true;
   });
@@ -716,6 +809,15 @@ function proche(it){
   if(p && (!d || p<d)) d=p;
   return d===null? null : jours(today(), d);
 }
+/* toutes les personnes déjà citées : responsables de zone, de point, membres connectés */
+function personnes(){
+  var s={};
+  Object.keys(AFFECT).forEach(function(k){ if(AFFECT[k]&&AFFECT[k].nom) s[AFFECT[k].nom]=1; });
+  liste().forEach(function(it){ if(it.resp) s[it.resp]=1; });
+  PEERS.forEach(function(p){ if(p.nom) s[p.nom]=1; });
+  if(MOI.nom) s[MOI.nom]=1;
+  return Object.keys(s).sort(function(a,b){return a.localeCompare(b,"fr");});
+}
 function entreprises(){
   var s={}; liste().forEach(function(it){ if(it.ent) s[it.ent]=1; });
   return Object.keys(s).sort(function(a,b){return a.localeCompare(b,"fr");});
@@ -730,6 +832,26 @@ function prochaineTache(id){
   var d=null;
   notesDe(id).forEach(function(n){ if(!n.fait && n.due && (!d || n.due<d)) d=n.due; });
   return d;
+}
+/* clé de stockage sûre pour Firebase (ni . $ # [ ] /) */
+function cleAffect(parts){
+  return parts.filter(function(x){return !!x;}).map(function(x){
+    return String(x).replace(/[.$#\[\]\/|~]/g, function(c){ return "~"+c.charCodeAt(0).toString(16); });
+  }).join("|");
+}
+/* responsable hérité : sous-zone → zone → niveau → bloc */
+function responsableDe(parts){
+  for(var d=parts.length; d>=1; d--){
+    if(!parts[d-1]) continue;
+    var a=AFFECT[cleAffect(parts.slice(0,d))];
+    if(a && a.nom) return a.nom;
+  }
+  return "";
+}
+function responsablePoint(it){ return it.resp || responsableDe([it.b,it.n,it.z,it.s]); }
+function affecteDirect(chemin){
+  var a=AFFECT[cleAffect(chemin)];
+  return a && a.nom ? a.nom : "";
 }
 function cheminTexte(it){
   return [it.b,it.n,it.z,it.s].filter(Boolean).join(" › ");
@@ -820,12 +942,14 @@ function vueReleve(){
   var h=barreRetour()+'<div class="stage"><div class="stage-lvl"><span>'+esc(lbl)+'</span>'+
         (d? '<button class="lvl-edit" data-a="editIci">Modifier '+esc(LVL[d-1].toLowerCase())+'</button>'
           : '<button class="lvl-edit" data-a="editProjet">Modifier le projet</button>')+
-        '</div><h1>'+esc(titre)+'</h1>'+jauge(sous)+'</div>';
+        '</div><h1>'+esc(titre)+'</h1>'+
+        (d>=3? '<div class="stage-resp">Responsable : <b>'+esc(responsableDe(V.chemin)||"TBD")+'</b></div>' : '')+
+        jauge(sous)+'</div>';
 
   if(kids.length){
     h+='<div class="sect-head"><h2 class="eyebrow">'+esc(pluriel(LVL[d]))+'</h2>'+
        '<span class="eyebrow num">'+kids.length+'</span></div>';
-    h+=kids.map(function(k){ return ligneNav(k); }).join("");
+    h+=kids.map(function(k){ return ligneNav(k, V.chemin); }).join("");
   }
 
   if(ici.length){
@@ -853,14 +977,17 @@ function barreRetour(){
 }
 function pluriel(m){ return m==="Bloc"?"Blocs":m==="Niveau"?"Niveaux":m==="Zone"?"Zones":"Sous-zones"; }
 
-function ligneNav(k){
+function ligneNav(k, base){
   var b=bilan(k.items), p=b.total?Math.round(b.t/b.total*100):0;
+  var ch=(base||[]).concat(k.nom), rp=responsableDe(ch);
+  var puceR = ch.length>=3
+    ? '<span class="nav-resp'+(rp?"":" tbd")+'">'+esc(rp||"TBD")+'</span>' : '';
   return '<div class="nav-row">'+
     '<button class="nav-go" data-a="go" data-v="'+esc(k.nom)+'">'+
       '<div class="nav-main"><div class="t">'+esc(k.nom)+'</div><div class="nav-sub">'+
         '<span class="nav-bar"><i style="width:'+p+'%"></i></span>'+
         '<span class="nav-frac num'+(b.t===b.total?" done":"")+'">'+b.t+'/'+b.total+'</span>'+
-        (b.retard?'<span class="nav-late">'+b.retard+' en retard</span>':'')+
+        (b.retard?'<span class="nav-late">'+b.retard+' en retard</span>':'')+puceR+
       '</div></div><span class="chev">›</span></button>'+
     '<button class="nav-edit" data-a="editGroupe" data-v="'+esc(k.nom)+'" aria-label="Modifier '+esc(k.nom)+'">'+
       '<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M14.5 7.5l2 2"/></svg>'+
@@ -871,9 +998,13 @@ function ligneItem(it, avecChemin){
   var st=it.st||"a", fait=st==="t", j=today();
   var retard = !fait && echue(it);
   var tags="";
-  if(it.prio) tags+='<span class="tag p1">Prioritaire</span>';
+  var pr=+(it.prio||0);
+  if(pr===2) tags+='<span class="tag p2">Critique</span>';
+  else if(pr===1) tags+='<span class="tag p1">Prioritaire</span>';
   if(it.ent)  tags+='<span class="tag ent">'+esc(it.ent)+'</span>';
-  if(it.resp) tags+='<span class="tag">'+esc(it.resp)+'</span>';
+  var rp=responsablePoint(it);
+  tags += rp ? '<span class="tag resp">'+esc(rp)+'</span>'
+             : '<span class="tag resp tbd">Resp. TBD</span>';
   if(st==="c") tags+='<span class="tag ent">En cours</span>';
   tags += it.delai ? puceEcheance(it.delai, fait, "ech", it._id)
         : (fait? "" : '<button class="due none" data-a="ech" data-id="'+it._id+'">+ Échéance</button>');
@@ -885,7 +1016,8 @@ function ligneItem(it, avecChemin){
   var vign = ph.slice(0,4).map(function(k){
     var m=it.ph[k];
     return '<button class="thumb" data-a="lens" data-id="'+it._id+'" data-ph="'+k+'">'+
-           '<img loading="lazy" src="'+esc(m.t||m.u||m.d||"")+'" alt=""></button>'; }).join("");
+           '<img loading="lazy" src="'+esc(m.t||m.u||m.d||"")+'" alt="">'+
+           (m.enCours?'<span class="up">Envoi</span>':'')+'</button>'; }).join("");
   vign += '<button class="thumb add" data-a="photo" data-id="'+it._id+'" aria-label="Ajouter une photo">+</button>';
 
   var age = fait ? "Levé le "+dfr((it.ta||"").slice(0,10)||j)
@@ -899,8 +1031,9 @@ function ligneItem(it, avecChemin){
       '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></button>'+
     '<div class="item-body">'+
       (avecChemin?'<div class="path-line">'+esc(cheminTexte(it))+'</div>':'')+
-      '<div class="item-txt">'+esc(it.txt)+'</div>'+
+      '<div class="item-txt" data-a="ouvrir" data-id="'+it._id+'">'+esc(it.txt)+'</div>'+
       (tags?'<div class="tags">'+tags+'</div>':'')+
+      (it.blq?'<div class="blq"><b>Point bloquant</b>'+esc(it.blq)+'</div>':'')+
       '<div class="thumbs">'+vign+'</div>'+
       '<div class="item-foot"><button data-a="ouvrir" data-id="'+it._id+'">Détails</button>'+
         (libNotes?'<button data-a="ouvrir" data-id="'+it._id+'">'+libNotes+'</button>':'')+
@@ -910,7 +1043,8 @@ function ligneItem(it, avecChemin){
 
 function barreFiltres(){
   var f=[["tous","Tous"],["ouvert","À traiter"],["cours","En cours"],["traite","Levés"],
-         ["semaine","Sous 7 jours"],["retard","En retard"],["sansdate","Sans échéance"],["photo","Avec photo"]];
+         ["critique","Critiques"],["bloquant","Bloquants"],["semaine","Sous 7 jours"],
+         ["retard","En retard"],["sansdate","Sans échéance"],["photo","Avec photo"]];
   var h='<div class="filters">'+f.map(function(x){
     return '<button class="pill" data-a="filtre" data-f="'+x[0]+'" aria-pressed="'+(V.filtre===x[0])+'">'+x[1]+'</button>';
   }).join("");
@@ -967,68 +1101,171 @@ function vueJournal(){
 }
 
 /* ---------- onglet Rapport ---------- */
+/* ---------- collecte commune au rapport écran et au rapport texte ---------- */
+function donneesRapport(){
+  var sous=sousArbre(V.chemin), j=today(), b=bilan(sous);
+  var d={ bilan:b, jour:[], bloquants:[], critiques:[], retard:[], semaine:[], reste:{}, ordre:[],
+          taches:[], total:sous.length };
+  sous.forEach(function(it){
+    var st=it.st||"a", fait=st==="t";
+    if(fait && (it.ta||"").slice(0,10)===j) d.jour.push(it);
+    if(!fait && (it.blq||"").trim()) d.bloquants.push(it);
+    if(!fait && +(it.prio||0)===2) d.critiques.push(it);
+    if(!fait && it.delai){
+      var e=jours(j,it.delai);
+      if(e<0) d.retard.push(it); else if(e<=7) d.semaine.push(it);
+    }
+    notesDe(it._id).forEach(function(n){
+      if(!n.fait && n.due) d.taches.push({due:n.due, txt:n.txt, qui:n.qui, it:it});
+    });
+    if(!fait){
+      var k=cheminTexte(it)||"—";
+      if(!d.reste[k]){ d.reste[k]=[]; d.ordre.push(k); }
+      d.reste[k].push(it);
+    }
+  });
+  var pj=function(x,y){ return (x.delai||"9999").localeCompare(y.delai||"9999"); };
+  d.retard.sort(pj); d.semaine.sort(pj);
+  d.taches.sort(function(x,y){ return x.due.localeCompare(y.due); });
+  return d;
+}
+
+/* ---------- rapport texte (partage WhatsApp / copie) ---------- */
 function texteRapport(){
-  var sous=sousArbre(V.chemin), b=bilan(sous), L=[];
+  var d=donneesRapport(), b=d.bilan, L=[], j=today();
+  var ligne=function(it){
+    return "  - "+it.txt+
+      (+(it.prio||0)===2?"  [CRITIQUE]":+(it.prio||0)===1?"  [PRIORITAIRE]":"")+
+      (it.ent?"  ["+it.ent+"]":"")+
+      (it.delai?"  echeance "+dfr(it.delai)+(it.delai<j?" EN RETARD":""):"")+
+      (it.ph&&Object.keys(it.ph).length?"  ("+Object.keys(it.ph).length+" photo)":"");
+  };
   L.push(META.nom.toUpperCase());
+  L.push(META.sub);
   L.push(V.chemin.length? V.chemin.join(" / ") : "Ensemble du chantier");
   L.push(new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}));
+  if(V.chemin.length>=3) L.push("Responsable : "+(responsableDe(V.chemin)||"TBD"));
   L.push("");
-  L.push("AVANCEMENT : "+b.t+(b.t>1?" levés":" levé")+" / "+b.total+" points ("+(b.total?Math.round(b.t/b.total*100):0)+" %)");
-  L.push("À traiter : "+(b.a||0)+"   En cours : "+b.c+(b.retard?"   En retard : "+b.retard:""));
+  L.push("AVANCEMENT  "+b.t+" / "+b.total+" points levés ("+(b.total?Math.round(b.t/b.total*100):0)+" %)");
+  L.push("A traiter "+(b.a||0)+"   En cours "+b.c+"   En retard "+b.retard+
+         "   Critiques "+d.critiques.length+"   Bloquants "+d.bloquants.length);
 
-  var groupes={};
-  sous.forEach(function(it){
-    if((it.st||"a")==="t") return;
-    var k=cheminTexte(it)||"—"; (groupes[k]=groupes[k]||[]).push(it);
-  });
-  var cles=Object.keys(groupes).sort(function(a,b){return a.localeCompare(b,"fr",{numeric:true});});
-  if(cles.length){
-    L.push(""); L.push("RESTE À TRAITER");
-    cles.forEach(function(k){
-      L.push(""); L.push(k.toUpperCase());
-      groupes[k].forEach(function(it){
-        L.push(" - "+it.txt+
-          (it.ent?"  ["+it.ent+"]":"")+
-          (it.resp?"  ["+it.resp+"]":"")+
-          (it.delai?"  délai "+dfr(it.delai):"")+
-          ((it.st||"a")==="c"?"  (en cours)":"")+
-          (it.ph&&Object.keys(it.ph).length?"  ("+Object.keys(it.ph).length+" photo)":""));
-      });
+  if(d.jour.length){
+    L.push(""); L.push("LEVES AUJOURD'HUI ("+d.jour.length+")");
+    d.jour.forEach(function(it){ L.push("  - "+cheminTexte(it)+" : "+it.txt+(it.tb?"  par "+it.tb:"")); });
+  }
+  if(d.bloquants.length){
+    L.push(""); L.push("POINTS BLOQUANTS ("+d.bloquants.length+")");
+    d.bloquants.forEach(function(it){
+      L.push("  - "+cheminTexte(it)+" : "+it.txt);
+      L.push("      -> "+it.blq+"   resp. "+(responsablePoint(it)||"TBD"));
     });
   }
-  var ech=[];
-  sous.forEach(function(it){
-    if((it.st||"a")!=="t" && it.delai) ech.push({d:it.delai, l:cheminTexte(it)+" : "+it.txt});
-    notesDe(it._id).forEach(function(n){
-      if(!n.fait && n.due) ech.push({d:n.due, l:cheminTexte(it)+" : "+n.txt+" (tâche, "+n.qui+")"});
-    });
-  });
-  if(ech.length){
-    ech.sort(function(a,b){ return a.d.localeCompare(b.d); });
-    L.push(""); L.push("ÉCHÉANCES ("+ech.length+")");
-    var jour=today();
-    ech.forEach(function(x){
-      L.push(" "+dfr(x.d)+(x.d<jour?" [EN RETARD]":"")+"  "+x.l);
-    });
+  if(d.critiques.length){
+    L.push(""); L.push("CRITIQUES ("+d.critiques.length+")");
+    d.critiques.forEach(function(it){ L.push("  - "+cheminTexte(it)+" : "+it.txt+
+      "   resp. "+(responsablePoint(it)||"TBD")); });
   }
-  var levees=sous.filter(function(it){return (it.st||"a")==="t";});
-  if(levees.length){
-    L.push(""); L.push("LEVÉS ("+levees.length+")");
-    levees.slice(0,80).forEach(function(it){ L.push(" - "+cheminTexte(it)+" : "+it.txt); });
-    if(levees.length>80) L.push(" … et "+(levees.length-80)+" autres.");
+  if(d.retard.length||d.semaine.length||d.taches.length){
+    L.push(""); L.push("ECHEANCES");
+    d.retard.forEach(function(it){ L.push("  "+dfr(it.delai)+" EN RETARD  "+cheminTexte(it)+" : "+it.txt); });
+    d.semaine.forEach(function(it){ L.push("  "+dfr(it.delai)+"  "+cheminTexte(it)+" : "+it.txt); });
+    d.taches.forEach(function(t){ L.push("  "+dfr(t.due)+(t.due<j?" EN RETARD":"")+"  tache : "+t.txt+
+      " ("+cheminTexte(t.it)+", "+t.qui+")"); });
+  }
+  if(d.ordre.length){
+    L.push(""); L.push("RESTE A TRAITER ("+(b.total-b.t)+")");
+    d.ordre.forEach(function(k){
+      var it0=d.reste[k][0];
+      L.push("");
+      L.push(k.toUpperCase()+"   resp. "+(responsablePoint(it0)||responsableDe([it0.b,it0.n,it0.z,it0.s])||"TBD"));
+      d.reste[k].forEach(function(it){ L.push(ligne(it)); });
+    });
   }
   return L.join("\n");
 }
+
+/* ---------- rapport à l'écran ---------- */
+function blocRapport(titre, n, corps, vide){
+  return '<div class="rep-sect"><h3><span>'+esc(titre)+'</span><em>'+n+'</em></h3>'+
+    (n? corps : '<p class="rep-vide">'+esc(vide)+'</p>')+'</div>';
+}
+function puceRap(it, opts){
+  opts=opts||{};
+  var pr=+(it.prio||0), j=today();
+  var droite = opts.date && it.delai
+      ? '<span class="n'+(it.delai<j?" late":"")+'">'+dfr(it.delai)+'</span>'
+      : opts.qui ? '<span class="n">'+esc(opts.qui)+'</span>'
+      : opts.resp ? '<span class="n">'+esc(responsablePoint(it)||"TBD")+'</span>' : '';
+  return '<div class="rep-li'+(pr===2?" crit":"")+(opts.done?" done":"")+'">'+
+    '<span class="p">'+(pr===2?"◆":pr===1?"◇":"·")+'</span>'+
+    '<span class="x">'+esc(opts.chemin? cheminTexte(it)+" — "+it.txt : it.txt)+'</span>'+droite+'</div>';
+}
 function vueResume(){
-  return barreRetour()+'<div class="stage"><div class="stage-lvl">Rapport</div><h1>'+
-    esc(V.chemin.length? V.chemin[V.chemin.length-1] : "Ensemble du chantier")+'</h1>'+
-    jauge(sousArbre(V.chemin))+'</div>'+
-    '<p class="note-sm">Le rapport suit la zone ouverte dans l\'onglet Relevé. Remontez le fil d\'ariane pour élargir.</p>'+
-    '<pre class="resume">'+esc(texteRapport())+'</pre>'+
+  var d=donneesRapport(), b=d.bilan, j=today();
+  var perimetre = V.chemin.length? V.chemin.join(" › ") : "Ensemble du chantier";
+  var pct = b.total? Math.round(b.t/b.total*100):0;
+
+  var h=barreRetour()+'<div class="rep">'+
+    '<div class="rep-head"><img src="'+LOGO+'" alt="">'+
+      '<div class="id"><h2>'+esc(META.nom)+'</h2><div class="sub">'+esc(perimetre)+'</div></div>'+
+      '<div class="dt">'+new Date().toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit",year:"numeric"})+
+        '<br>'+esc(MOI.nom)+'</div></div>'+
+    '<div class="stats">'+
+      '<div class="stat"><b>'+b.total+'</b><span>Points</span></div>'+
+      '<div class="stat l"><b>'+b.t+'</b><span>Levés</span></div>'+
+      '<div class="stat c"><b>'+b.c+'</b><span>En cours</span></div>'+
+      '<div class="stat"><b>'+(b.a||0)+'</b><span>À traiter</span></div>'+
+      '<div class="stat r"><b>'+b.retard+'</b><span>En retard</span></div>'+
+    '</div>';
+
+  if(V.chemin.length>=3)
+    h+='<div class="rep-grp"><div class="r'+(responsableDe(V.chemin)?"":" tbd")+'">Responsable de la zone : <b>'+
+       esc(responsableDe(V.chemin)||"TBD")+'</b></div></div>';
+
+  h+='<div class="rep-sect"><h3><span>Avancement</span><em>'+pct+' %</em></h3>'+
+     '<div class="track" style="height:5px"><i class="d" style="width:'+pct+'%"></i>'+
+     '<i class="c" style="width:'+(b.total?Math.round(b.c/b.total*100):0)+'%"></i></div></div>';
+
+  h+=blocRapport("Levés aujourd'hui", d.jour.length,
+      d.jour.map(function(it){ return puceRap(it,{chemin:1,done:1,qui:it.tb||""}); }).join(""),
+      "Aucun point levé aujourd'hui.");
+
+  h+=blocRapport("Points bloquants", d.bloquants.length,
+      d.bloquants.map(function(it){
+        return puceRap(it,{chemin:1,resp:1})+
+          '<div class="rep-blq"><b>Ce qui bloque</b>'+esc(it.blq)+'</div>'; }).join(""),
+      "Aucun point bloquant signalé.");
+
+  h+=blocRapport("Critiques", d.critiques.length,
+      d.critiques.map(function(it){ return puceRap(it,{chemin:1,resp:1}); }).join(""),
+      "Aucun point critique en cours.");
+
+  var ech = d.retard.map(function(it){ return puceRap(it,{chemin:1,date:1}); }).join("")+
+            d.semaine.map(function(it){ return puceRap(it,{chemin:1,date:1}); }).join("")+
+            d.taches.map(function(t){
+              return '<div class="rep-li"><span class="p">·</span><span class="x">'+
+                esc(cheminTexte(t.it)+" — "+t.txt)+' <em style="font-style:normal;color:var(--grey)">('+
+                esc(t.qui)+')</em></span><span class="n'+(t.due<j?" late":"")+'">'+dfr(t.due)+'</span></div>'; }).join("");
+  h+=blocRapport("Échéances", d.retard.length+d.semaine.length+d.taches.length, ech,
+      "Aucune échéance en retard ni dans les sept jours.");
+
+  var reste=d.ordre.map(function(k){
+    var it0=d.reste[k][0], rp=responsablePoint(it0)||responsableDe([it0.b,it0.n,it0.z,it0.s]);
+    return '<div class="rep-grp"><div class="z">'+esc(k)+'</div>'+
+      '<div class="r'+(rp?"":" tbd")+'">Responsable : <b>'+esc(rp||"TBD")+'</b> · '+
+      d.reste[k].length+' point'+(d.reste[k].length>1?"s":"")+'</div>'+
+      d.reste[k].map(function(it){ return puceRap(it,{date:1}); }).join("")+'</div>';
+  }).join("");
+  h+=blocRapport("Reste à traiter", b.total-b.t, reste, "Tout est levé sur ce périmètre.");
+
+  h+='</div>'+
     '<div class="btn-row"><button class="btn solid" data-a="partager">Partager</button>'+
     '<button class="btn" data-a="copier">Copier</button></div>'+
-    '<div class="btn-row"><button class="btn" data-a="imprimer">Imprimer</button>'+
-    '<button class="btn" data-a="csv">Export CSV</button></div>';
+    '<div class="btn-row"><button class="btn" data-a="imprimer">Imprimer / PDF</button>'+
+    '<button class="btn" data-a="csv">Export CSV</button></div>'+
+    '<p class="note-sm">Le rapport suit la zone ouverte dans l\'onglet Relevé. Remontez le fil d\'ariane pour élargir le périmètre.</p>';
+  return h;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -1057,7 +1294,8 @@ function datalists(){
     return '<datalist id="dl'+i+'">'+Object.keys(s).sort(function(a,b){return a.localeCompare(b,"fr",{numeric:true});})
       .map(function(v){return '<option value="'+esc(v)+'">';}).join("")+'</datalist>';
   }).join("")+
-  '<datalist id="dle">'+entreprises().map(function(v){return '<option value="'+esc(v)+'">';}).join("")+'</datalist>';
+  '<datalist id="dle">'+entreprises().map(function(v){return '<option value="'+esc(v)+'">';}).join("")+'</datalist>'+
+  '<datalist id="dlr">'+personnes().map(function(v){return '<option value="'+esc(v)+'">';}).join("")+'</datalist>';
 }
 
 /* ---------- fiche d'un point ---------- */
@@ -1083,12 +1321,16 @@ function ouvrirPoint(id){
       }).join("")+'</div>')+
     '<div class="grid2">'+
       champ("Entreprise",'<input id="fEnt" list="dle" value="'+esc(it.ent||"")+'" placeholder="Lot / société">')+
-      champ("Responsable",'<input id="fResp" value="'+esc(it.resp||"")+'" placeholder="Nom">')+
+      champ("Responsable",'<input id="fResp" value="'+esc(it.resp||"")+'" placeholder="'+
+        esc(responsableDe([it.b,it.n,it.z,it.s])||"TBD")+'">')+
     '</div><div class="grid2">'+
       champ("Délai",'<input id="fDelai" type="date" value="'+esc(it.delai||"")+'">')+
-      champ("Priorité",'<div class="seg" id="fPrio"><button data-a="seg" data-p="0" aria-pressed="'+(!it.prio)+'">Normale</button>'+
-        '<button data-a="seg" data-p="1" aria-pressed="'+(!!it.prio)+'">Prioritaire</button></div>')+
+      champ("Priorité",'<div class="seg" id="fPrio">'+
+        [0,1,2].map(function(p){
+          return '<button class="'+(p===2?"p":"")+'" data-a="seg" data-p="'+p+'" aria-pressed="'+
+                 (+(it.prio||0)===p)+'">'+PRIO[p]+'</button>'; }).join("")+'</div>')+
     '</div>'+
+    champ("Point bloquant",'<textarea id="fBlq" rows="2" placeholder="Ce qui empêche d\'avancer — laissez vide s\'il n\'y en a pas">'+esc(it.blq||"")+'</textarea>')+
     '<div class="field"><label class="eyebrow">Photos</label><div class="thumbs">'+
       ph.map(function(k){ var m=it.ph[k];
         return '<button class="thumb" data-a="lens" data-id="'+id+'" data-ph="'+k+'">'+
@@ -1188,9 +1430,12 @@ function ouvrirAjout(){
       champ("Responsable",'<input id="aResp" placeholder="Facultatif">')+
     '</div><div class="grid2">'+
       champ("Délai",'<input id="aDelai" type="date">')+
-      champ("Priorité",'<div class="seg" id="aPrio"><button data-a="seg" data-p="0" aria-pressed="true">Normale</button>'+
-        '<button data-a="seg" data-p="1" aria-pressed="false">Prioritaire</button></div>')+
+      champ("Priorité",'<div class="seg" id="aPrio">'+
+        [0,1,2].map(function(p){
+          return '<button class="'+(p===2?"p":"")+'" data-a="seg" data-p="'+p+'" aria-pressed="'+(p===0)+'">'+
+                 PRIO[p]+'</button>'; }).join("")+'</div>')+
     '</div>'+
+    champ("Point bloquant",'<textarea id="aBlq" rows="2" placeholder="Facultatif"></textarea>')+
     '<div class="field"><label class="eyebrow">Photos</label><div class="thumbs" id="aPh">'+
       '<button class="thumb add" data-a="photoNouveau">+</button></div></div>'+
     '<button class="btn solid" data-a="creer">Ajouter le point</button>'+datalists();
@@ -1209,7 +1454,12 @@ function ouvrirGroupe(chemin){
   for(var i=0;i<d;i++){
     h+=champ(LVL[i],'<input id="g'+i+'" list="dl'+i+'" value="'+esc(chemin[i])+'">');
   }
-  h+='<button class="btn solid" data-a="groupeSave">Enregistrer</button>'+
+  h+=champ("Responsable de "+(d>=3?"la sous-zone":d===3?"la zone":LVL[d-1].toLowerCase()),
+      '<input id="gResp" list="dlr" value="'+esc(affecteDirect(chemin))+'" placeholder="'+
+      esc(responsableDe(chemin.slice(0,d-1))||"TBD")+'">')+
+    '<p class="note-sm" style="margin:-4px 0 16px">Le responsable saisi ici vaut pour toute cette branche : '+
+    'sous-zones et points en héritent, sauf si un responsable plus précis est renseigné.</p>'+
+    '<button class="btn solid" data-a="groupeSave">Enregistrer</button>'+
      '<div class="btn-row"><button class="btn ghost" data-a="groupeDel">Supprimer le groupe et ses '+n+' point(s)</button></div>'+
      datalists();
   ouvrirFeuille(h);
@@ -1228,9 +1478,17 @@ function enregistrerGroupe(){
     patch["points/"+it._id+"/ua"]=Date.now();
     patch["points/"+it._id+"/ub"]=MOI.nom;
   });
-  if(!change){ fermerFeuille(); toast("Rien à changer."); return; }
-  DB.majLot(patch);
-  DB.journal("a renommé", GROUPE.join(" › ")+" → "+vals.filter(Boolean).join(" › "), "");
+  var resp=($("gResp")||{}).value ? $("gResp").value.trim() : affecteDirect(GROUPE);
+  var respAvant=affecteDirect(GROUPE);
+  var cleAvant=cleAffect(GROUPE), cleApres=cleAffect(vals);
+  if(change) DB.majLot(patch);
+  if(cleAvant!==cleApres) DB.majAffect(cleAvant, null);
+  if(resp) DB.majAffect(cleApres, {nom:resp, chemin:vals.filter(Boolean), ts:Date.now(), par:MOI.nom});
+  else if(cleAvant===cleApres && respAvant) DB.majAffect(cleApres, null);
+  if(resp!==respAvant) DB.journal(resp? "a confié à "+resp : "a retiré le responsable",
+                                  vals.filter(Boolean).join(" › "), "");
+  if(!change && resp===respAvant){ fermerFeuille(); toast("Rien à changer."); return; }
+  if(change) DB.journal("a renommé", GROUPE.join(" › ")+" → "+vals.filter(Boolean).join(" › "), "");
   /* rester au même endroit dans l'arborescence */
   var avant=V.chemin.slice();
   for(var i=0;i<d && i<avant.length;i++) avant[i]=vals[i];
@@ -1310,7 +1568,8 @@ function enregistrerPoint(id){
     ent:  $("fEnt").value.trim(),
     resp: $("fResp").value.trim(),
     delai:$("fDelai").value||"",
-    prio: $("fPrio").querySelector('[aria-pressed=true]').dataset.p==="1"?1:0,
+    prio: +(($("fPrio").querySelector('[aria-pressed=true]')||{dataset:{p:0}}).dataset.p),
+    blq:  $("fBlq").value.trim(),
     st:   st? st.st : (it.st||"a"),
     ua:Date.now(), ub:MOI.nom
   };
@@ -1326,7 +1585,8 @@ function creerPoint(){
   if(!txt){ toast("Écrivez la description avant d'ajouter."); $("aTxt").focus(); return; }
   var obj={ b:$("a0").value.trim(), n:$("a1").value.trim(), z:$("a2").value.trim(), s:$("a3").value.trim(),
     txt:txt, ent:$("aEnt").value.trim(), resp:$("aResp").value.trim(), delai:$("aDelai").value||"",
-    prio:$("aPrio").querySelector('[aria-pressed=true]').dataset.p==="1"?1:0,
+    prio:+(($("aPrio").querySelector('[aria-pressed=true]')||{dataset:{p:0}}).dataset.p),
+    blq:$("aBlq").value.trim(),
     st:"a", o:2e6+Date.now()%1e6, ca:Date.now(), cb:MOI.nom, ua:Date.now(), ub:MOI.nom };
   if(!obj.b){ toast("Indiquez au moins le bloc."); return; }
   var id=DB.creerPoint(obj);
@@ -1394,15 +1654,30 @@ $("cam").addEventListener("change", function(ev){
   var id=CIBLE; files.forEach(function(f){ televerser(id,f); });
 });
 async function televerser(id,file){
-  toast("Envoi de la photo…");
+  var cle = "p"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
   try{
-    var meta = await DB.envoyerPhoto(id, file);
-    var cle = "p"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
-    var patch={}; patch["ph/"+cle]=meta; patch.ua=Date.now(); patch.ub=MOI.nom;
-    await DB.majPoint(id,patch);
+    /* 1 — la miniature part tout de suite : l'équipe la voit en une fraction de seconde */
+    var petite = await compresser(file, 260, 0.55);
+    var p1={};
+    p1["ph/"+cle] = { t: await versDataURL(petite), ts:Date.now(), qui:MOI.nom, enCours:1 };
+    p1.ua=Date.now(); p1.ub=MOI.nom;
+    await DB.majPoint(id, p1);
     DB.journal("a ajouté une photo", (ITEMS[id]||{}).txt||"", cheminTexte(ITEMS[id]||{}));
-    toast("Photo ajoutée.");
-  }catch(e){ toast("Photo non envoyée : "+(e.message||e)); }
+    toast("Photo publiée — envoi de la pleine résolution…");
+
+    /* 2 — l'image lourde suit en arrière-plan */
+    var grande = await compresser(file, 1600, 0.72);
+    var meta   = await DB.envoyerPleine(id, grande);
+    var p2={};
+    if(meta.u){ p2["ph/"+cle+"/u"]=meta.u; p2["ph/"+cle+"/p"]=meta.p; }
+    if(meta.m){ p2["ph/"+cle+"/m"]=meta.m; }
+    if(meta.d){ p2["ph/"+cle+"/d"]=meta.d; }
+    p2["ph/"+cle+"/enCours"]=null;
+    await DB.majPoint(id, p2);
+  }catch(e){
+    toast("Photo non envoyée : "+(e.message||e));
+    var ko={}; ko["ph/"+cle]=null; DB.majPoint(id, ko);
+  }
 }
 
 var LENS={id:null,ph:null};
@@ -1415,6 +1690,7 @@ async function ouvrirLens(id,ph){
   $("lensBy").textContent = (m.qui||"")+" — "+(it.txt||"").slice(0,60);
   $("lens").classList.add("on");
   try{
+    if(m.enCours){ toast("Pleine résolution en cours d'envoi…"); }
     var src = m.u || m.d || (m.m ? await DB.lireMedia(id, m.m) : null);
     if(src && LENS.id===id && LENS.ph===ph){ $("lensImg").src=src; $("lensImg").style.filter="none"; }
   }catch(e){ toast("Photo indisponible hors connexion."); }
@@ -1644,7 +1920,10 @@ async function demarrer(cfg){
   else if(ls("pg:local")==="1"){ DB.initLocal(); dessiner(); fin(); }
   else { ecranConfig(); fin(); }
   setTimeout(function(){ if(DB.mode==="firebase") marquerPresence(); }, 4000);
-  setInterval(function(){ if(DB.mode==="firebase" && DB.connected) marquerPresence(); }, 240000);
+  setInterval(function(){ if(DB.mode==="firebase" && DB.connected) marquerPresence(); }, 120000);
+  document.addEventListener("visibilitychange", function(){
+    if(!document.hidden && DB.mode==="firebase" && DB.connected) marquerPresence();
+  });
 })();
 
 })();
