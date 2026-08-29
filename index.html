@@ -480,24 +480,60 @@ function compresser(file, max, q){
     }
   });
 }
+var STOCKAGE = null;   /* "storage" (Cloud Storage) ou "base" (Realtime Database) */
+
+function versDataURL(blob){
+  return new Promise(function(res,rej){
+    var r=new FileReader(); r.onload=function(){res(r.result)}; r.onerror=rej; r.readAsDataURL(blob);
+  });
+}
+
 DB.envoyerPhoto = async function(itemId, file, onProg){
-  var blob = await compresser(file);
-  if(DB.mode==="firebase"){
-    var chemin = "projets/"+PROJET_ID+"/photos/"+itemId+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,6)+".jpg";
-    var tache  = DB.storage.ref(chemin).put(blob,{contentType:"image/jpeg"});
-    await new Promise(function(res,rej){
-      tache.on("state_changed",
-        function(s){ onProg && onProg(Math.round(s.bytesTransferred/s.totalBytes*100)); },
-        rej, res);
-    });
-    var url = await tache.snapshot.ref.getDownloadURL();
-    return { u:url, p:chemin, ts:Date.now(), qui:MOI.nom };
+  var grande = await compresser(file, 1600, 0.72);
+  var petite = await compresser(file, 260, 0.55);
+  var meta   = { t: await versDataURL(petite), ts:Date.now(), qui:MOI.nom };
+
+  /* mode local : tout sur l'appareil */
+  if(DB.mode!=="firebase"){ meta.d = await versDataURL(grande); return meta; }
+
+  /* 1er choix : Cloud Storage, si le projet est en plan Blaze */
+  if(STOCKAGE!=="base"){
+    try{
+      var chemin = "projets/"+PROJET_ID+"/photos/"+itemId+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,6)+".jpg";
+      var tache  = DB.storage.ref(chemin).put(grande,{contentType:"image/jpeg"});
+      await new Promise(function(res,rej){
+        tache.on("state_changed",
+          function(s){ onProg && onProg(Math.round(s.bytesTransferred/s.totalBytes*100)); },
+          rej, res);
+      });
+      meta.u = await tache.snapshot.ref.getDownloadURL();
+      meta.p = chemin;
+      STOCKAGE = "storage";
+      return meta;
+    }catch(e){
+      STOCKAGE = "base";
+      toast("Stockage photo : bascule sur la base de données.");
+    }
   }
-  var data = await new Promise(function(res){ var r=new FileReader(); r.onload=function(){res(r.result)}; r.readAsDataURL(blob); });
-  return { u:data, p:"", ts:Date.now(), qui:MOI.nom };
+
+  /* repli : l'image pleine résolution vit dans une branche séparée,
+     jamais chargée avec la liste des points — seulement à l'ouverture. */
+  var cle = DB.ref.child("medias/"+itemId).push().key;
+  await DB.ref.child("medias/"+itemId+"/"+cle).set(await versDataURL(grande));
+  meta.m = cle;
+  return meta;
 };
-DB.supprPhoto = function(chemin){
-  if(DB.mode==="firebase" && chemin){ try{ DB.storage.ref(chemin).delete(); }catch(e){} }
+
+DB.lireMedia = async function(itemId, cle){
+  if(DB.mode!=="firebase") return null;
+  var s = await DB.ref.child("medias/"+itemId+"/"+cle).once("value");
+  return s.val();
+};
+
+DB.supprPhoto = function(meta, itemId){
+  if(!meta || DB.mode!=="firebase") return;
+  if(meta.p){ try{ DB.storage.ref(meta.p).delete(); }catch(e){} }
+  if(meta.m){ DB.ref.child("medias/"+itemId+"/"+meta.m).remove(); }
 };
 
 /* ══════════════════════════════════════════════════════════════
@@ -701,8 +737,9 @@ function ligneItem(it, avecChemin){
 
   var ph = it.ph? Object.keys(it.ph):[];
   var vign = ph.slice(0,4).map(function(k){
+    var m=it.ph[k];
     return '<button class="thumb" data-a="lens" data-id="'+it._id+'" data-ph="'+k+'">'+
-           '<img loading="lazy" src="'+esc(it.ph[k].u)+'" alt=""></button>'; }).join("");
+           '<img loading="lazy" src="'+esc(m.t||m.u||m.d||"")+'" alt=""></button>'; }).join("");
   vign += '<button class="thumb add" data-a="photo" data-id="'+it._id+'" aria-label="Ajouter une photo">+</button>';
 
   var age = fait ? "Levé le "+dfr((it.ta||"").slice(0,10)||j)
@@ -879,8 +916,9 @@ function ouvrirPoint(id){
         '<button data-a="seg" data-p="1" aria-pressed="'+(!!it.prio)+'">Prioritaire</button></div>')+
     '</div>'+
     '<div class="field"><label class="eyebrow">Photos</label><div class="thumbs">'+
-      ph.map(function(k){ return '<button class="thumb" data-a="lens" data-id="'+id+'" data-ph="'+k+'">'+
-        '<img src="'+esc(it.ph[k].u)+'" alt=""></button>'; }).join("")+
+      ph.map(function(k){ var m=it.ph[k];
+        return '<button class="thumb" data-a="lens" data-id="'+id+'" data-ph="'+k+'">'+
+        '<img src="'+esc(m.t||m.u||m.d||"")+'" alt=""></button>'; }).join("")+
       '<button class="thumb add" data-a="photo" data-id="'+id+'">+</button></div></div>'+
     '<div class="field"><label class="eyebrow">Notes de l\'équipe</label>'+
       (notes.length? notes.map(function(n){
@@ -993,7 +1031,7 @@ function creerPoint(){
 function supprimerPoint(id){
   var it=ITEMS[id]; if(!it) return;
   if(!confirm("Supprimer définitivement ce point ?\n\n"+it.txt)) return;
-  if(it.ph) Object.keys(it.ph).forEach(function(k){ DB.supprPhoto(it.ph[k].p); });
+  if(it.ph) Object.keys(it.ph).forEach(function(k){ DB.supprPhoto(it.ph[k], id); });
   DB.supprPoint(id);
   DB.journal("a supprimé", it.txt, cheminTexte(it));
   fermerFeuille(); toast("Point supprimé.");
@@ -1038,19 +1076,24 @@ async function televerser(id,file){
 }
 
 var LENS={id:null,ph:null};
-function ouvrirLens(id,ph){
+async function ouvrirLens(id,ph){
   var it=ITEMS[id]; if(!it||!it.ph||!it.ph[ph]) return;
-  LENS={id:id,ph:ph};
-  $("lensImg").src=it.ph[ph].u;
-  $("lensInfo").textContent=heure(it.ph[ph].ts);
-  $("lensBy").textContent=(it.ph[ph].qui||"")+" — "+(it.txt||"").slice(0,60);
+  var m=it.ph[ph]; LENS={id:id,ph:ph};
+  $("lensImg").src = m.t||"";
+  $("lensImg").style.filter = (m.u||m.d)? "none":"blur(6px)";
+  $("lensInfo").textContent = heure(m.ts);
+  $("lensBy").textContent = (m.qui||"")+" — "+(it.txt||"").slice(0,60);
   $("lens").classList.add("on");
+  try{
+    var src = m.u || m.d || (m.m ? await DB.lireMedia(id, m.m) : null);
+    if(src && LENS.id===id && LENS.ph===ph){ $("lensImg").src=src; $("lensImg").style.filter="none"; }
+  }catch(e){ toast("Photo indisponible hors connexion."); }
 }
 $("lensClose").onclick=function(){ $("lens").classList.remove("on"); $("lensImg").src=""; };
 $("lensDel").onclick=function(){
   var it=ITEMS[LENS.id]; if(!it) return;
   if(!confirm("Supprimer cette photo ?")) return;
-  DB.supprPhoto(it.ph[LENS.ph].p);
+  DB.supprPhoto(it.ph[LENS.ph], LENS.id);
   var patch={}; patch["ph/"+LENS.ph]=null; patch.ua=Date.now(); patch.ub=MOI.nom;
   DB.majPoint(LENS.id,patch);
   $("lens").classList.remove("on"); toast("Photo supprimée.");
