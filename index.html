@@ -13,7 +13,7 @@
 <style>
 :root{
   --paper:#FBFBF9; --ink:#17181A; --grey:#8C8D87; --rule:#E3E2DD; --soft:#F2F2EF;
-  --field:#FFFFFF; --late:#A32C1E; --brass:#8A6A2F; --done:#2E6A4F; --shadow:rgba(23,24,26,.10);
+  --field:#FFFFFF; --late:#A32C1E; --brass:#8A6A2F; --done:#2E6A4F; --soon:#9A6B12; --shadow:rgba(23,24,26,.10);
   --sans:"Helvetica Neue",Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   --safe-b:env(safe-area-inset-bottom,0px);
   --bar:calc(58px + var(--safe-b));
@@ -91,7 +91,11 @@ textarea{resize:vertical;line-height:1.5}
 
 /* ============ SIGNATURE : LE BANDEAU DE RELEVÉ ============ */
 .stage{padding:20px 0 16px;border-bottom:1px solid var(--rule);margin-bottom:4px}
-.stage-lvl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);font-weight:600}
+.stage-lvl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);font-weight:600;
+  display:flex;justify-content:space-between;align-items:center;gap:12px}
+.lvl-edit{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--grey);
+  border-bottom:1px solid var(--rule);padding:3px 0}
+.lvl-edit:active{color:var(--ink);border-color:var(--ink)}
 .stage h1{font-size:26px;line-height:1.12;margin:7px 0 16px;letter-spacing:-.022em}
 .gauge{display:flex;align-items:flex-end;gap:14px}
 .gauge-fig{display:flex;align-items:baseline;gap:3px;flex:none}
@@ -108,9 +112,14 @@ textarea{resize:vertical;line-height:1.5}
 /* ============ LISTES DE NAVIGATION ============ */
 .sect-head{display:flex;justify-content:space-between;align-items:baseline;
   padding:22px 0 8px;border-bottom:1px solid var(--ink);margin-bottom:2px}
-.nav-row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;
-  padding:15px 0;border-bottom:1px solid var(--rule)}
-.nav-row:active{background:var(--soft)}
+.nav-row{display:flex;align-items:center;border-bottom:1px solid var(--rule)}
+.nav-go{flex:1;min-width:0;display:flex;align-items:center;gap:14px;text-align:left;padding:15px 0}
+.nav-go:active{background:var(--soft)}
+.nav-edit{flex:none;width:40px;height:40px;display:grid;place-items:center;color:var(--grey);
+  border:1px solid var(--rule);border-radius:3px;background:#fff;margin-left:10px}
+.nav-edit:active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.nav-edit svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
 .nav-main{flex:1;min-width:0}
 .nav-main .t{font-size:15.5px;font-weight:500;letter-spacing:-.01em;overflow-wrap:anywhere}
 .nav-sub{display:flex;align-items:center;gap:8px;margin-top:7px}
@@ -139,6 +148,31 @@ textarea{resize:vertical;line-height:1.5}
 .tag.late{color:var(--late);border-color:var(--late)}
 .tag.ent{color:var(--brass);border-color:#E0D5BE}
 .tag.p1{color:var(--late);border-color:var(--late);font-weight:600}
+/* ---- échéances ---- */
+.due{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--rule);border-radius:2px;padding:3px 8px;background:#fff;color:var(--grey);font-weight:600}
+.due .d{font-weight:500;letter-spacing:.02em;color:var(--grey);font-variant-numeric:tabular-nums}
+.due.soon{color:var(--soon);border-color:#E6D6B4}
+.due.late{color:var(--late);border-color:var(--late)}
+.due.none{border-style:dashed;font-weight:500;color:var(--grey)}
+.due:active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.due:active .d{color:#fff}
+.item.done .due{opacity:.55}
+.quick{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.quick button{border:1px solid var(--rule);border-radius:99px;padding:10px 15px;font-size:12.5px;background:#fff}
+.quick button:active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ---- tâches (notes) ---- */
+.note-row{display:flex;gap:11px;align-items:flex-start}
+.ntick{width:26px;height:26px;flex:none;border:1.5px solid var(--ink);border-radius:3px;background:#fff;
+  display:grid;place-items:center;margin-top:2px}
+.ntick svg{width:14px;height:14px;opacity:0;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.note.done .ntick{background:var(--ink)}
+.note.done .ntick svg{opacity:1}
+.note.done .t{color:var(--grey);text-decoration:line-through;text-decoration-thickness:1px}
+.note-acts{display:flex;align-items:center;gap:13px;margin-top:7px;flex-wrap:wrap}
+.note-acts button{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);font-weight:600}
+
 .item-foot{display:flex;align-items:center;gap:14px;margin-top:9px}
 .item-foot button{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);font-weight:600}
 .item-foot .age{font-size:10.5px;letter-spacing:.06em;color:var(--grey);margin-left:auto}
@@ -333,6 +367,27 @@ function jours(a,b){ return Math.round((new Date(b+"T12:00:00")-new Date(a+"T12:
 function heure(ts){ var d=new Date(ts), n=new Date();
   if(d.toDateString()===n.toDateString()) return d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
   return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit"}); }
+function dateDans(n){ var d=new Date(); d.setDate(d.getDate()+n);
+  return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10); }
+function finDuMois(){ var n=new Date(), d=new Date(n.getFullYear(), n.getMonth()+1, 0);
+  return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10); }
+/* libellé relatif d'une échéance */
+function echeance(date, fait){
+  if(!date) return null;
+  var j = jours(today(), date);
+  var lib = j<0 ? (j===-1?"En retard d'un jour":"En retard de "+(-j)+" jours")
+          : j===0 ? "Pour aujourd'hui"
+          : j===1 ? "Pour demain"
+          : j<=14 ? "Dans "+j+" jours"
+          :         "Pour le "+dfr(date);
+  return { j:j, lib: fait? "Échéance "+dfr(date) : lib,
+           cls: fait? "" : j<0? "late" : j<=2? "soon" : "" };
+}
+function puceEcheance(date, fait, act, id, nid){
+  var e=echeance(date, fait);
+  return '<button class="due '+e.cls+'" data-a="'+act+'" data-id="'+id+'"'+(nid?' data-nid="'+nid+'"':'')+'>'+
+    e.lib+'<span class="d">'+dfr(date)+'</span></button>';
+}
 function toast(m){ var e=$("toast"); e.textContent=m; e.classList.add("on");
   clearTimeout(e._t); e._t=setTimeout(function(){e.classList.remove("on")},2200); }
 function buzz(ms){ try{ navigator.vibrate && navigator.vibrate(ms||8); }catch(e){} }
@@ -384,6 +439,7 @@ DB.initFirebase = async function(cfg){
     var o=s.val()||{}, a=Object.keys(o).map(function(k){ return o[k]; });
     a.sort(function(x,y){ return y.ts-x.ts; }); DB.onLog && DB.onLog(a);
   });
+  DB.ref.child("meta").on("value", function(s){ DB.onMeta && DB.onMeta(s.val()); });
   DB.ref.child("presence").on("value", function(s){
     var o=s.val()||{}, lim=Date.now()-9e5;
     DB.onPeers && DB.onPeers(Object.keys(o).map(function(k){return o[k];}).filter(function(p){return p.ts>lim;}));
@@ -418,6 +474,7 @@ function chargerLocal(){
   Object.keys(ITEMS).forEach(function(k){ if(!pts[k]) DB.onItemGone(k); });
   Object.keys(pts).forEach(function(k){ DB.onItem(k, pts[k]); });
   DB.onNote && DB.onNote(d.notes||{});
+  DB.onMeta && DB.onMeta(d.meta);
   var j = d.journal||{}, a = Object.keys(j).map(function(k){return j[k];});
   a.sort(function(x,y){return y.ts-x.ts;}); DB.onLog && DB.onLog(a.slice(0,80));
 }
@@ -434,6 +491,22 @@ DB.majPoint = function(id, patch){
   });
   d.points[id]=cur; ecrireLocal(d); chargerLocal(); return Promise.resolve();
 };
+DB.majMeta = function(obj){
+  if(DB.mode==="firebase") return DB.ref.child("meta").update(obj);
+  var d=lireLocal(); d.meta=Object.assign(d.meta||{}, obj); ecrireLocal(d); chargerLocal();
+  return Promise.resolve();
+};
+/* mise à jour multi-chemins depuis la racine du projet : "points/<id>/<champ>" */
+DB.majLot = function(patch){
+  if(DB.mode==="firebase") return DB.ref.update(patch);
+  var d=lireLocal();
+  Object.keys(patch).forEach(function(k){
+    var pa=k.split("/"), o=d;
+    for(var i=0;i<pa.length-1;i++){ o[pa[i]]=o[pa[i]]||{}; o=o[pa[i]]; }
+    if(patch[k]===null) delete o[pa[pa.length-1]]; else o[pa[pa.length-1]]=patch[k];
+  });
+  ecrireLocal(d); chargerLocal(); return Promise.resolve();
+};
 DB.creerPoint = function(obj){
   var id = uid();
   if(DB.mode==="firebase"){ DB.ref.child("points/"+id).set(obj); return id; }
@@ -448,6 +521,17 @@ DB.creerNote = function(itemId, note){
   if(DB.mode==="firebase") return DB.ref.child("notes/"+itemId).push(note);
   var d=lireLocal(); d.notes=d.notes||{}; d.notes[itemId]=d.notes[itemId]||{};
   d.notes[itemId][uid()]=note; ecrireLocal(d); chargerLocal();
+};
+DB.majNote = function(itemId, noteId, patch){
+  if(DB.mode==="firebase") return DB.ref.child("notes/"+itemId+"/"+noteId).update(patch);
+  var d=lireLocal(); d.notes=d.notes||{}; d.notes[itemId]=d.notes[itemId]||{};
+  d.notes[itemId][noteId]=Object.assign(d.notes[itemId][noteId]||{}, patch);
+  ecrireLocal(d); chargerLocal(); return Promise.resolve();
+};
+DB.supprNote = function(itemId, noteId){
+  if(DB.mode==="firebase") return DB.ref.child("notes/"+itemId+"/"+noteId).remove();
+  var d=lireLocal(); if(d.notes && d.notes[itemId]) delete d.notes[itemId][noteId];
+  ecrireLocal(d); chargerLocal(); return Promise.resolve();
 };
 DB.journal = function(act, txt, ref){
   var e={ ts:Date.now(), qui:MOI.nom, act:act, txt:txt, ref:ref||"" };
@@ -554,6 +638,7 @@ DB.supprPhoto = function(meta, itemId){
    4 — ÉTAT
    ══════════════════════════════════════════════════════════════ */
 var ITEMS = {}, NOTES = {}, LOG = [], PEERS = [];
+var META = { nom: PROJET_NOM, sub: PROJET_SUB };
 var MOI = { nom: ls("pg:nom")||"", uid:null };
 var V   = { tab:"releve", chemin:[], q:"", filtre:"tous", ent:"" };
 var pending = null;
@@ -564,6 +649,7 @@ DB.onNote     = function(o){ NOTES=o||{}; planifier(); };
 DB.onLog      = function(a){ LOG=a||[]; planifier(); };
 DB.onPeers    = function(a){ PEERS=a||[]; planifier(); };
 DB.onState    = function(){ planifier(); };
+DB.onMeta     = function(m){ if(m){ if(m.nom) META.nom=m.nom; if(m.sub) META.sub=m.sub; } planifier(); };
 
 function planifier(){ if(pending) return; pending = requestAnimationFrame(function(){ pending=null; dessiner(); }); }
 
@@ -596,7 +682,7 @@ function bilan(items){
   var b={total:items.length, t:0, c:0, a:0, retard:0}, j=today();
   items.forEach(function(it){
     var s=it.st||"a"; b[s]=(b[s]||0)+1;
-    if(s!=="t" && it.delai && it.delai<j) b.retard++;
+    if(s!=="t" && echue(it)) b.retard++;
   });
   return b;
 }
@@ -607,15 +693,43 @@ function filtrer(items){
     if(f==="ouvert" && s==="t") return false;
     if(f==="traite" && s!=="t") return false;
     if(f==="cours"  && s!=="c") return false;
-    if(f==="retard" && !(s!=="t" && it.delai && it.delai<today())) return false;
+    if(f==="retard" && !(s!=="t" && echue(it))) return false;
+    if(f==="semaine"){ var e=proche(it); if(s==="t" || e===null || e>7) return false; }
+    if(f==="sansdate" && (s==="t" || it.delai || prochaineTache(it._id))) return false;
     if(f==="photo"  && !(it.ph && Object.keys(it.ph).length)) return false;
     if(e && (it.ent||"")!==e) return false;
     return true;
   });
 }
+/* le point est-il en retard, par son propre délai ou par une tâche ouverte ? */
+function echue(it){
+  var j=today();
+  if(it.delai && it.delai<j) return true;
+  var p=prochaineTache(it._id);
+  return !!(p && p<j);
+}
+/* nombre de jours avant la première échéance du point, ou null */
+function proche(it){
+  var d=null;
+  if(it.delai) d=it.delai;
+  var p=prochaineTache(it._id);
+  if(p && (!d || p<d)) d=p;
+  return d===null? null : jours(today(), d);
+}
 function entreprises(){
   var s={}; liste().forEach(function(it){ if(it.ent) s[it.ent]=1; });
   return Object.keys(s).sort(function(a,b){return a.localeCompare(b,"fr");});
+}
+function notesDe(id){
+  var o=NOTES[id]||{};
+  return Object.keys(o).map(function(k){ var n=Object.assign({},o[k]); n._id=k; return n; })
+          .sort(function(a,b){ return (a.ts||0)-(b.ts||0); });
+}
+/* échéance la plus proche parmi les tâches non faites d'un point */
+function prochaineTache(id){
+  var d=null;
+  notesDe(id).forEach(function(n){ if(!n.fait && n.due && (!d || n.due<d)) d=n.due; });
+  return d;
 }
 function cheminTexte(it){
   return [it.b,it.n,it.z,it.s].filter(Boolean).join(" › ");
@@ -643,7 +757,7 @@ function enTete(){
   var pairs = PEERS.length>1 ? " · "+PEERS.length : "";
   var h = '<div class="head"><div class="head-top">'+
     '<button class="mark" data-a="up" data-i="0" aria-label="Revenir à tous les blocs"><img src="'+LOGO+'" alt=""></button>'+
-    '<div class="head-id"><b>'+esc(PROJET_NOM)+'</b><span>'+esc(PROJET_SUB)+'</span></div>'+
+    '<div class="head-id"><b>'+esc(META.nom)+'</b><span>'+esc(META.sub)+'</span></div>'+
     '<div class="sync"><i class="dot '+cls+'"></i>'+etat+pairs+'</div>'+
     '<button class="who" data-a="reglages">'+esc(MOI.nom)+'</button>'+
     '</div>';
@@ -700,11 +814,13 @@ function vueReleve(){
       kids = enfants(V.chemin),
       ici  = pointsIci(V.chemin);
 
-  var titre = d? V.chemin[d-1] : PROJET_NOM.split("—")[0].trim();
+  var titre = d? V.chemin[d-1] : META.nom.split("—")[0].trim();
   var lbl   = d? LVL[d-1] : "Ensemble du chantier";
 
-  var h=barreRetour()+'<div class="stage"><div class="stage-lvl">'+esc(lbl)+'</div>'+
-        '<h1>'+esc(titre)+'</h1>'+jauge(sous)+'</div>';
+  var h=barreRetour()+'<div class="stage"><div class="stage-lvl"><span>'+esc(lbl)+'</span>'+
+        (d? '<button class="lvl-edit" data-a="editIci">Modifier '+esc(LVL[d-1].toLowerCase())+'</button>'
+          : '<button class="lvl-edit" data-a="editProjet">Modifier le projet</button>')+
+        '</div><h1>'+esc(titre)+'</h1>'+jauge(sous)+'</div>';
 
   if(kids.length){
     h+='<div class="sect-head"><h2 class="eyebrow">'+esc(pluriel(LVL[d]))+'</h2>'+
@@ -717,7 +833,7 @@ function vueReleve(){
        '<span class="eyebrow num">'+ici.length+'</span></div>';
     h+=barreFiltres();
     var f=filtrer(ici);
-    h+= f.length ? f.map(ligneItem).join("")
+    h+= f.length ? f.map(function(it){ return ligneItem(it); }).join("")
        : '<p class="empty"><b>Rien avec ce filtre.</b>Changez de filtre pour revoir les autres points.</p>';
   }
 
@@ -739,23 +855,31 @@ function pluriel(m){ return m==="Bloc"?"Blocs":m==="Niveau"?"Niveaux":m==="Zone"
 
 function ligneNav(k){
   var b=bilan(k.items), p=b.total?Math.round(b.t/b.total*100):0;
-  return '<button class="nav-row" data-a="go" data-v="'+esc(k.nom)+'">'+
-    '<div class="nav-main"><div class="t">'+esc(k.nom)+'</div><div class="nav-sub">'+
-      '<span class="nav-bar"><i style="width:'+p+'%"></i></span>'+
-      '<span class="nav-frac num'+(b.t===b.total?" done":"")+'">'+b.t+'/'+b.total+'</span>'+
-      (b.retard?'<span class="nav-late">'+b.retard+' en retard</span>':'')+
-    '</div></div><span class="chev">›</span></button>';
+  return '<div class="nav-row">'+
+    '<button class="nav-go" data-a="go" data-v="'+esc(k.nom)+'">'+
+      '<div class="nav-main"><div class="t">'+esc(k.nom)+'</div><div class="nav-sub">'+
+        '<span class="nav-bar"><i style="width:'+p+'%"></i></span>'+
+        '<span class="nav-frac num'+(b.t===b.total?" done":"")+'">'+b.t+'/'+b.total+'</span>'+
+        (b.retard?'<span class="nav-late">'+b.retard+' en retard</span>':'')+
+      '</div></div><span class="chev">›</span></button>'+
+    '<button class="nav-edit" data-a="editGroupe" data-v="'+esc(k.nom)+'" aria-label="Modifier '+esc(k.nom)+'">'+
+      '<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M14.5 7.5l2 2"/></svg>'+
+    '</button></div>';
 }
 
 function ligneItem(it, avecChemin){
   var st=it.st||"a", fait=st==="t", j=today();
-  var retard = !fait && it.delai && it.delai<j;
+  var retard = !fait && echue(it);
   var tags="";
   if(it.prio) tags+='<span class="tag p1">Prioritaire</span>';
   if(it.ent)  tags+='<span class="tag ent">'+esc(it.ent)+'</span>';
   if(it.resp) tags+='<span class="tag">'+esc(it.resp)+'</span>';
-  if(it.delai) tags+='<span class="tag'+(retard?" late":"")+'">Délai '+dfr(it.delai)+'</span>';
   if(st==="c") tags+='<span class="tag ent">En cours</span>';
+  tags += it.delai ? puceEcheance(it.delai, fait, "ech", it._id)
+        : (fait? "" : '<button class="due none" data-a="ech" data-id="'+it._id+'">+ Échéance</button>');
+  var pt = prochaineTache(it._id);
+  if(pt){ var e=echeance(pt,false);
+    if(e.cls) tags+='<span class="due '+e.cls+'" style="pointer-events:none">Tâche : '+e.lib.toLowerCase()+'</span>'; }
 
   var ph = it.ph? Object.keys(it.ph):[];
   var vign = ph.slice(0,4).map(function(k){
@@ -766,6 +890,9 @@ function ligneItem(it, avecChemin){
 
   var age = fait ? "Levé le "+dfr((it.ta||"").slice(0,10)||j)
           : (it.ca ? "Ouvert depuis "+Math.max(0,jours(new Date(it.ca).toISOString().slice(0,10), j))+" j" : "");
+  var ns = notesDe(it._id), reste = ns.filter(function(n){ return !n.fait; }).length;
+  var libNotes = ns.length ? (reste? reste+"/"+ns.length+" tâche"+(ns.length>1?"s":"")
+                                   : ns.length+" tâche"+(ns.length>1?"s":"")+" faite"+(ns.length>1?"s":"")) : "";
 
   return '<div class="item'+(fait?" done":"")+'" data-id="'+it._id+'">'+
     '<button class="tick'+(st==="c"?" c":"")+'" data-a="tick" data-id="'+it._id+'" aria-label="'+(fait?"Rouvrir":"Marquer levé")+'">'+
@@ -776,14 +903,14 @@ function ligneItem(it, avecChemin){
       (tags?'<div class="tags">'+tags+'</div>':'')+
       '<div class="thumbs">'+vign+'</div>'+
       '<div class="item-foot"><button data-a="ouvrir" data-id="'+it._id+'">Détails</button>'+
-        (NOTES[it._id]?'<button data-a="ouvrir" data-id="'+it._id+'">'+Object.keys(NOTES[it._id]).length+' note(s)</button>':'')+
+        (libNotes?'<button data-a="ouvrir" data-id="'+it._id+'">'+libNotes+'</button>':'')+
         '<span class="age'+(retard?" late":"")+'">'+age+'</span></div>'+
     '</div></div>';
 }
 
 function barreFiltres(){
   var f=[["tous","Tous"],["ouvert","À traiter"],["cours","En cours"],["traite","Levés"],
-         ["retard","En retard"],["photo","Avec photo"]];
+         ["semaine","Sous 7 jours"],["retard","En retard"],["sansdate","Sans échéance"],["photo","Avec photo"]];
   var h='<div class="filters">'+f.map(function(x){
     return '<button class="pill" data-a="filtre" data-f="'+x[0]+'" aria-pressed="'+(V.filtre===x[0])+'">'+x[1]+'</button>';
   }).join("");
@@ -842,7 +969,7 @@ function vueJournal(){
 /* ---------- onglet Rapport ---------- */
 function texteRapport(){
   var sous=sousArbre(V.chemin), b=bilan(sous), L=[];
-  L.push(PROJET_NOM.toUpperCase());
+  L.push(META.nom.toUpperCase());
   L.push(V.chemin.length? V.chemin.join(" / ") : "Ensemble du chantier");
   L.push(new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}));
   L.push("");
@@ -869,6 +996,21 @@ function texteRapport(){
       });
     });
   }
+  var ech=[];
+  sous.forEach(function(it){
+    if((it.st||"a")!=="t" && it.delai) ech.push({d:it.delai, l:cheminTexte(it)+" : "+it.txt});
+    notesDe(it._id).forEach(function(n){
+      if(!n.fait && n.due) ech.push({d:n.due, l:cheminTexte(it)+" : "+n.txt+" (tâche, "+n.qui+")"});
+    });
+  });
+  if(ech.length){
+    ech.sort(function(a,b){ return a.d.localeCompare(b.d); });
+    L.push(""); L.push("ÉCHÉANCES ("+ech.length+")");
+    var jour=today();
+    ech.forEach(function(x){
+      L.push(" "+dfr(x.d)+(x.d<jour?" [EN RETARD]":"")+"  "+x.l);
+    });
+  }
   var levees=sous.filter(function(it){return (it.st||"a")==="t";});
   if(levees.length){
     L.push(""); L.push("LEVÉS ("+levees.length+")");
@@ -892,14 +1034,18 @@ function vueResume(){
 /* ══════════════════════════════════════════════════════════════
    6 — FEUILLES MODALES
    ══════════════════════════════════════════════════════════════ */
+var T_FEUILLE=null;
 function ouvrirFeuille(html){
+  clearTimeout(T_FEUILLE);                 /* une feuille ouverte juste après une fermeture ne doit pas être vidée */
   $("sheetIn").innerHTML='<div class="grab"></div>'+html;
+  $("sheetIn").parentNode.scrollTop=0;
   $("scrim").classList.remove("hidden");
   requestAnimationFrame(function(){ $("scrim").classList.add("on"); $("sheet").classList.add("on"); });
 }
 function fermerFeuille(){
   $("sheet").classList.remove("on"); $("scrim").classList.remove("on");
-  setTimeout(function(){ $("scrim").classList.add("hidden"); $("sheetIn").innerHTML=""; },300);
+  clearTimeout(T_FEUILLE);
+  T_FEUILLE=setTimeout(function(){ $("scrim").classList.add("hidden"); $("sheetIn").innerHTML=""; },300);
 }
 function teteFeuille(titre, action){
   return '<div class="sheet-head"><h3>'+esc(titre)+'</h3><button data-a="fermer">'+(action||"Fermer")+'</button></div>';
@@ -917,14 +1063,20 @@ function datalists(){
 /* ---------- fiche d'un point ---------- */
 function ouvrirPoint(id){
   var it=ITEMS[id]; if(!it) return;
+  var notesBrut=notesDe(id);
   var st=it.st||"a";
   var ph=it.ph?Object.keys(it.ph):[];
-  var notes=NOTES[id]?Object.keys(NOTES[id]).map(function(k){return NOTES[id][k];}):[];
-  notes.sort(function(a,b){return a.ts-b.ts;});
+  var notes=notesBrut;
 
   var h=teteFeuille("Point relevé")+
-    '<div class="path-line" style="margin-bottom:14px">'+esc(cheminTexte(it))+'</div>'+
     champ("Description",'<textarea id="fTxt" rows="3">'+esc(it.txt)+'</textarea>')+
+    '<div class="grid2">'+
+      champ("Bloc",'<input id="f0" list="dl0" value="'+esc(it.b||"")+'">')+
+      champ("Niveau",'<input id="f1" list="dl1" value="'+esc(it.n||"")+'">')+
+    '</div><div class="grid2">'+
+      champ("Zone",'<input id="f2" list="dl2" value="'+esc(it.z||"")+'">')+
+      champ("Sous-zone",'<input id="f3" list="dl3" value="'+esc(it.s||"")+'">')+
+    '</div>'+
     champ("Statut",'<div class="seg" id="fSt">'+
       ['a','c','t'].map(function(s){
         return '<button class="'+(s==="c"?"c":s==="t"?"d":"")+'" data-a="seg" data-st="'+s+'" aria-pressed="'+(st===s)+'">'+ST[s]+'</button>';
@@ -942,18 +1094,80 @@ function ouvrirPoint(id){
         return '<button class="thumb" data-a="lens" data-id="'+id+'" data-ph="'+k+'">'+
         '<img src="'+esc(m.t||m.u||m.d||"")+'" alt=""></button>'; }).join("")+
       '<button class="thumb add" data-a="photo" data-id="'+id+'">+</button></div></div>'+
-    '<div class="field"><label class="eyebrow">Notes de l\'équipe</label>'+
-      (notes.length? notes.map(function(n){
-        return '<div class="note"><div class="m">'+esc(n.qui)+' · '+heure(n.ts)+'</div><div class="t">'+esc(n.txt)+'</div></div>';
-      }).join("") : '<p class="note-sm" style="margin:0 0 10px">Aucune note.</p>')+
-      '<div style="display:flex;gap:8px;margin-top:10px"><input id="fNote" placeholder="Écrire une note…">'+
-      '<button class="btn" style="width:auto;padding:11px 16px" data-a="note" data-id="'+id+'">Envoyer</button></div></div>'+
+    '<div class="field"><label class="eyebrow">Notes et tâches</label>'+
+      (notes.length? notes.map(function(n){ return ligneNote(id,n); }).join("")
+                   : '<p class="note-sm" style="margin:0 0 10px">Aucune note pour l\'instant.</p>')+
+      '<div style="display:flex;gap:8px;margin-top:12px"><input id="fNote" placeholder="Note ou tâche à faire…">'+
+      '<button class="btn" style="width:auto;padding:11px 16px" data-a="note" data-id="'+id+'">Ajouter</button></div>'+
+      '<div style="display:flex;gap:8px;margin-top:8px;align-items:center">'+
+        '<label class="eyebrow" style="flex:none;margin:0">À faire pour</label>'+
+        '<input id="fNoteDue" type="date" style="flex:1">'+
+      '</div></div>'+
     '<button class="btn solid" data-a="enregistrer" data-id="'+id+'">Enregistrer</button>'+
     '<div class="btn-row"><button class="btn ghost" data-a="supprimer" data-id="'+id+'">Supprimer le point</button></div>'+
     '<p class="note-sm">Créé par '+esc(it.cb||"—")+(it.ca?" le "+heure(it.ca):"")+
       (it.ub?" · dernière modification par "+esc(it.ub):"")+'</p>'+
     datalists();
   ouvrirFeuille(h);
+}
+
+var NOTE_EDIT=null;
+function ligneNote(id,n){
+  if(NOTE_EDIT===n._id){
+    return '<div class="note"><textarea id="nTxt'+n._id+'" rows="2">'+esc(n.txt)+'</textarea>'+
+      '<div class="note-acts"><button data-a="nsave" data-id="'+id+'" data-nid="'+n._id+'">Enregistrer</button>'+
+      '<button data-a="ncancel">Annuler</button></div></div>';
+  }
+  var due = n.due ? puceEcheance(n.due, !!n.fait, "echNote", id, n._id)
+                  : (n.fait? "" : '<button class="due none" data-a="echNote" data-id="'+id+'" data-nid="'+n._id+'">+ À faire pour</button>');
+  return '<div class="note'+(n.fait?" done":"")+'"><div class="note-row">'+
+    '<button class="ntick" data-a="ntick" data-id="'+id+'" data-nid="'+n._id+'" aria-label="'+(n.fait?"Rouvrir la tâche":"Marquer faite")+'">'+
+      '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></button>'+
+    '<div style="flex:1;min-width:0">'+
+      '<div class="m">'+esc(n.qui)+' · '+heure(n.ts)+(n.fait&&n.faitPar?' · faite par '+esc(n.faitPar):'')+'</div>'+
+      '<div class="t">'+esc(n.txt)+'</div>'+
+      '<div class="note-acts">'+due+
+        '<button data-a="nedit" data-id="'+id+'" data-nid="'+n._id+'">Modifier</button>'+
+        '<button data-a="ndel" data-id="'+id+'" data-nid="'+n._id+'">Supprimer</button>'+
+      '</div>'+
+    '</div></div></div>';
+}
+
+/* ---------- feuille d'échéance ---------- */
+var ECH=null;
+function ouvrirEcheance(type,id,nid){
+  var detail = !!$("fTxt");
+  ECH={type:type,id:id,nid:nid,detail:detail};
+  var cur = type==="point" ? (ITEMS[id]||{}).delai||""
+                           : ((NOTES[id]||{})[nid]||{}).due||"";
+  var q=[["Aujourd'hui",0],["Demain",1],["Dans 3 jours",3],["Dans une semaine",7],
+         ["Dans deux semaines",14],["Fin du mois","fin"]];
+  ouvrirFeuille(teteFeuille(type==="point"?"Échéance du point":"À faire pour","Annuler")+
+    '<p class="note-sm" style="margin:0 0 16px">'+
+      (cur? "Échéance actuelle : "+dfr(cur)+" — "+echeance(cur,false).lib.toLowerCase()
+          : "Aucune échéance pour l\'instant.")+'</p>'+
+    '<div class="quick">'+q.map(function(x){
+      return '<button data-a="echQ" data-n="'+x[1]+'">'+x[0]+'</button>'; }).join("")+'</div>'+
+    champ("Ou choisir une date",'<input id="echDate" type="date" value="'+esc(cur)+'">')+
+    '<button class="btn solid" data-a="echSave">Enregistrer l\'échéance</button>'+
+    (cur?'<div class="btn-row"><button class="btn ghost" data-a="echDel">Retirer l\'échéance</button></div>':''));
+}
+function poserEcheance(val){
+  if(!ECH) return;
+  var id=ECH.id, nid=ECH.nid, type=ECH.type, detail=ECH.detail;
+  if(type==="point"){
+    var it=ITEMS[id]||{};
+    DB.majPoint(id,{ delai:val||"", ua:Date.now(), ub:MOI.nom });
+    DB.journal(val? "a fixé une échéance au "+dfr(val) : "a retiré l'échéance", it.txt||"", cheminTexte(it));
+  } else {
+    DB.majNote(id,nid,{ due:val||"" });
+    var n=(NOTES[id]||{})[nid]||{};
+    DB.journal(val? "a fixé une tâche au "+dfr(val) : "a retiré l'échéance d'une tâche",
+               n.txt||"", cheminTexte(ITEMS[id]||{}));
+  }
+  ECH=null; fermerFeuille();
+  toast(val? "Échéance au "+dfr(val)+"." : "Échéance retirée.");
+  if(detail) setTimeout(function(){ ouvrirPoint(id); },260);
 }
 
 /* ---------- ajout ---------- */
@@ -984,12 +1198,80 @@ function ouvrirAjout(){
   setTimeout(function(){ var t=$("aTxt"); t&&t.focus(); },330);
 }
 
+/* ---------- modifier un bloc / niveau / zone / sous-zone ---------- */
+var GROUPE=[];
+function ouvrirGroupe(chemin){
+  GROUPE=chemin.slice();
+  var d=chemin.length, n=sousArbre(chemin).length;
+  var h=teteFeuille("Modifier "+LVL[d-1].toLowerCase(),"Annuler")+
+    '<p class="note-sm" style="margin:0 0 16px">Renommer ici met à jour les '+n+
+    ' point(s) rattachés. Changer un niveau supérieur déplace tout le groupe.</p>';
+  for(var i=0;i<d;i++){
+    h+=champ(LVL[i],'<input id="g'+i+'" list="dl'+i+'" value="'+esc(chemin[i])+'">');
+  }
+  h+='<button class="btn solid" data-a="groupeSave">Enregistrer</button>'+
+     '<div class="btn-row"><button class="btn ghost" data-a="groupeDel">Supprimer le groupe et ses '+n+' point(s)</button></div>'+
+     datalists();
+  ouvrirFeuille(h);
+}
+function enregistrerGroupe(){
+  var d=GROUPE.length, vals=[];
+  for(var i=0;i<d;i++) vals.push($("g"+i).value.trim());
+  if(!vals[0]){ toast("Le bloc ne peut pas être vide."); return; }
+  var items=sousArbre(GROUPE);
+  if(!items.length){ fermerFeuille(); return; }
+  var patch={}, change=false;
+  items.forEach(function(it){
+    for(var i=0;i<d;i++){
+      if((it[K[i]]||"")!==vals[i]){ patch["points/"+it._id+"/"+K[i]]=vals[i]; change=true; }
+    }
+    patch["points/"+it._id+"/ua"]=Date.now();
+    patch["points/"+it._id+"/ub"]=MOI.nom;
+  });
+  if(!change){ fermerFeuille(); toast("Rien à changer."); return; }
+  DB.majLot(patch);
+  DB.journal("a renommé", GROUPE.join(" › ")+" → "+vals.filter(Boolean).join(" › "), "");
+  /* rester au même endroit dans l'arborescence */
+  var avant=V.chemin.slice();
+  for(var i=0;i<d && i<avant.length;i++) avant[i]=vals[i];
+  V.chemin=avant.filter(function(x,i){ return i<d? !!x : true; });
+  fermerFeuille(); pousserEtat(); dessiner(); toast("Modification enregistrée.");
+}
+function supprimerGroupe(){
+  var items=sousArbre(GROUPE), n=items.length;
+  if(!confirm("Supprimer « "+GROUPE[GROUPE.length-1]+" » et ses "+n+" point(s) ?\n\nCette action est définitive et visible par toute l'équipe.")) return;
+  if(!confirm("Confirmer la suppression de "+n+" point(s) ?")) return;
+  items.forEach(function(it){
+    if(it.ph) Object.keys(it.ph).forEach(function(k){ DB.supprPhoto(it.ph[k], it._id); });
+    DB.supprPoint(it._id);
+  });
+  DB.journal("a supprimé", n+" point(s)", GROUPE.join(" › "));
+  V.chemin=GROUPE.slice(0,-1);
+  fermerFeuille(); pousserEtat(); dessiner(); toast(n+" point(s) supprimé(s).");
+}
+
+/* ---------- modifier l'intitulé du projet ---------- */
+function ouvrirProjet(){
+  ouvrirFeuille(teteFeuille("Modifier le projet","Annuler")+
+    '<p class="note-sm" style="margin:0 0 16px">Ces intitulés apparaissent en haut de l\'écran et en tête des rapports, pour toute l\'équipe.</p>'+
+    champ("Nom du projet",'<input id="pNom" value="'+esc(META.nom)+'">')+
+    champ("Sous-titre",'<input id="pSub" value="'+esc(META.sub)+'">')+
+    '<button class="btn solid" data-a="projetSave">Enregistrer</button>');
+}
+function enregistrerProjet(){
+  var n=$("pNom").value.trim(), s=$("pSub").value.trim();
+  if(!n){ toast("Indiquez un nom de projet."); return; }
+  DB.majMeta({nom:n, sub:s});
+  DB.journal("a renommé le projet", n, "");
+  fermerFeuille(); toast("Projet renommé.");
+}
+
 /* ---------- réglages ---------- */
 function ouvrirReglages(){
   var b=bilan(liste());
   var h=teteFeuille("Réglages")+
     champ("Votre nom (affiché à l'équipe)",'<input id="rNom" value="'+esc(MOI.nom)+'">')+
-    '<div class="kv"><span>Projet</span><b>'+esc(PROJET_ID)+'</b></div>'+
+    '<div class="kv"><span>Projet</span><b>'+esc(META.nom)+'</b></div>'+
     '<div class="kv"><span>Mode</span><b>'+(DB.mode==="firebase"?"Firebase — temps réel":"Local (cet appareil)")+'</b></div>'+
     '<div class="kv"><span>Points</span><b class="num">'+b.total+'</b></div>'+
     '<div class="kv"><span>Levés</span><b class="num">'+b.t+'</b></div>'+
@@ -998,6 +1280,7 @@ function ouvrirReglages(){
     '<div class="btn-row"><button class="btn" data-a="csv">Export CSV</button>'+
     '<button class="btn" data-a="json">Sauvegarde JSON</button></div>'+
     (liste().length? '' : '<div class="btn-row"><button class="btn" data-a="import">Importer le relevé initial</button></div>')+
+    '<div class="btn-row"><button class="btn" data-a="editProjet">Renommer le projet</button></div>'+
     '<div class="btn-row"><button class="btn ghost" data-a="config">Changer la configuration Firebase</button></div>'+
     '<p class="note-sm">Les modifications sont partagées avec toute l\'équipe en temps réel. '+
     'Hors réseau, elles sont mises en file d\'attente puis envoyées dès le retour de la connexion.</p>';
@@ -1019,8 +1302,11 @@ function marquer(id){
 function enregistrerPoint(id){
   var it=ITEMS[id]; if(!it) return;
   var st = ($("fSt").querySelector('[aria-pressed=true]')||{}).dataset;
+  var b0=$("f0").value.trim();
+  if(!b0){ toast("Le bloc ne peut pas être vide."); return; }
   var patch={
     txt:  $("fTxt").value.trim() || it.txt,
+    b:b0, n:$("f1").value.trim(), z:$("f2").value.trim(), s:$("f3").value.trim(),
     ent:  $("fEnt").value.trim(),
     resp: $("fResp").value.trim(),
     delai:$("fDelai").value||"",
@@ -1060,11 +1346,33 @@ function supprimerPoint(id){
 }
 
 function ajouterNote(id){
-  var i=$("fNote"), t=i.value.trim(); if(!t) return;
-  DB.creerNote(id,{ txt:t, qui:MOI.nom, ts:Date.now() });
-  DB.journal("a commenté", t, cheminTexte(ITEMS[id]||{}));
-  i.value=""; toast("Note envoyée.");
+  var i=$("fNote"), t=i.value.trim(); if(!t){ toast("Écrivez la note avant d'ajouter."); return; }
+  var due=($("fNoteDue")||{}).value||"";
+  DB.creerNote(id,{ txt:t, qui:MOI.nom, ts:Date.now(), due:due, fait:0 });
+  DB.journal(due? "a ajouté une tâche pour le "+dfr(due) : "a commenté", t, cheminTexte(ITEMS[id]||{}));
+  i.value=""; toast(due? "Tâche ajoutée pour le "+dfr(due)+"." : "Note ajoutée.");
   setTimeout(function(){ ouvrirPoint(id); },260);
+}
+function cocheNote(id,nid){
+  var n=(NOTES[id]||{})[nid]||{}; var f=n.fait?0:1;
+  buzz(8);
+  DB.majNote(id,nid, f? {fait:1, faitPar:MOI.nom, faitLe:Date.now()} : {fait:0, faitPar:null, faitLe:null});
+  DB.journal(f?"a terminé une tâche":"a rouvert une tâche", n.txt||"", cheminTexte(ITEMS[id]||{}));
+  setTimeout(function(){ if($("fTxt")) ouvrirPoint(id); },200);
+}
+function supprimerNote(id,nid){
+  var n=(NOTES[id]||{})[nid]||{};
+  if(!confirm("Supprimer cette note ?\n\n"+(n.txt||""))) return;
+  DB.supprNote(id,nid);
+  DB.journal("a supprimé une note", n.txt||"", cheminTexte(ITEMS[id]||{}));
+  setTimeout(function(){ ouvrirPoint(id); },220);
+}
+function enregistrerNote(id,nid){
+  var el=$("nTxt"+nid); if(!el) return;
+  var t=el.value.trim(); if(!t){ toast("La note ne peut pas être vide."); return; }
+  DB.majNote(id,nid,{txt:t});
+  DB.journal("a modifié une note", t, cheminTexte(ITEMS[id]||{}));
+  NOTE_EDIT=null; setTimeout(function(){ ouvrirPoint(id); },200); toast("Note modifiée.");
 }
 
 /* ---------- photos ---------- */
@@ -1130,9 +1438,12 @@ function telecharger(nom, contenu, type){
 }
 function exportCSV(){
   var e=function(v){ return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'; };
-  var L=[["BLOC","NIVEAU","ZONE","SOUS-ZONE","DESCRIPTION","ENTREPRISE","RESPONSABLE","STATUT","DELAI","PHOTOS","LEVE PAR","LEVE LE"].map(e).join(";")];
+  var L=[["BLOC","NIVEAU","ZONE","SOUS-ZONE","DESCRIPTION","ENTREPRISE","RESPONSABLE","STATUT","ECHEANCE",
+          "TACHES RESTANTES","PROCHAINE TACHE","PHOTOS","LEVE PAR","LEVE LE"].map(e).join(";")];
   liste().sort(function(a,b){return (a.o||0)-(b.o||0);}).forEach(function(it){
+    var ns=notesDe(it._id), reste=ns.filter(function(n){return !n.fait;}).length;
     L.push([it.b,it.n,it.z,it.s,it.txt,it.ent,it.resp,ST[it.st||"a"],it.delai,
+      reste, prochaineTache(it._id)||"",
       it.ph?Object.keys(it.ph).length:0, it.tb||"", it.ta?it.ta.slice(0,10):""].map(e).join(";"));
   });
   telecharger(PROJET_ID+"-elements-manquants-"+today()+".csv","\ufeff"+L.join("\r\n"),"text/csv;charset=utf-8");
@@ -1177,11 +1488,28 @@ document.addEventListener("click", function(ev){
     case "ouvrir":   ouvrirPoint(id); break;
     case "ajouter":  ouvrirAjout(); break;
     case "reglages": ouvrirReglages(); break;
+    case "editIci":     ouvrirGroupe(V.chemin); break;
+    case "editGroupe":  ouvrirGroupe(V.chemin.concat(b.dataset.v)); break;
+    case "editProjet":  ouvrirProjet(); break;
+    case "groupeSave":  enregistrerGroupe(); break;
+    case "groupeDel":   supprimerGroupe(); break;
+    case "projetSave":  enregistrerProjet(); break;
     case "fermer":   fermerFeuille(); break;
     case "enregistrer": enregistrerPoint(id); break;
     case "creer":    creerPoint(); break;
     case "supprimer":supprimerPoint(id); break;
     case "note":     ajouterNote(id); break;
+    case "ech":      ouvrirEcheance("point", id); break;
+    case "echNote":  ouvrirEcheance("note", id, b.dataset.nid); break;
+    case "echQ":     var n=b.dataset.n;
+                     $("echDate").value = n==="fin"? finDuMois() : dateDans(+n); break;
+    case "echSave":  poserEcheance($("echDate").value||""); break;
+    case "echDel":   poserEcheance(""); break;
+    case "ntick":    cocheNote(id, b.dataset.nid); break;
+    case "ndel":     supprimerNote(id, b.dataset.nid); break;
+    case "nedit":    NOTE_EDIT=b.dataset.nid; ouvrirPoint(id); break;
+    case "ncancel":  NOTE_EDIT=null; ouvrirPoint(id); break;
+    case "nsave":    enregistrerNote(id, b.dataset.nid); break;
     case "photo":    demanderPhoto(id); break;
     case "photoNouveau": demanderPhoto("__nouveau__"); break;
     case "lens":     ouvrirLens(id,b.dataset.ph); break;
@@ -1195,7 +1523,7 @@ document.addEventListener("click", function(ev){
     case "imprimer": window.print(); break;
     case "partager":
       var t=texteRapport();
-      if(navigator.share) navigator.share({title:PROJET_NOM,text:t}).catch(function(){});
+      if(navigator.share) navigator.share({title:META.nom,text:t}).catch(function(){});
       else copier(t);
       break;
     case "seg":
